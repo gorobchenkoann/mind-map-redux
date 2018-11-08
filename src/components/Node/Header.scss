@@ -1,0 +1,12 @@
+.input {
+    padding: 5px;
+    color: #7e7e7e;
+    font-weight: 700;
+    border: none;
+    background-color: transparent;
+    outline: none;
+
+    &:focus {
+        border: 1px dashed #a1a1a1;
+    }
+}

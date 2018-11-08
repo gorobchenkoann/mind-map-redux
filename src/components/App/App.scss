@@ -1,0 +1,22 @@
+.container {
+    position: relative;
+    min-width: 100vw;
+    min-height: 100vh;
+    background-color: #f2eef5;
+}
+
+.svg {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+}
+
+.editor {
+    flex-grow: 1;
+    min-height: 100px;
+    padding: 10px;
+    background-color: #ffffff;
+    outline: none;
+}

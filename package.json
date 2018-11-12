@@ -7,7 +7,7 @@
     "clean": "rm -rf dist",
     "start": "parcel src/index.html --open",
     "watch": "npm run clean && parcel watch src/index.html",
-    "build": "npm run clean && parcel build src/index.html"
+    "build": "npm run clean && parcel build src/index.html --no-source-maps --detailed-report"
   },
   "author": "",
   "license": "ISC",
@@ -18,18 +18,18 @@
     "postcss-modules": "^1.4.1",
     "react": "^16.6.0",
     "react-dom": "^16.6.0",
-    "react-icons": "^3.2.2",
     "react-redux": "^5.1.0",
     "redux": "^4.0.1",
-    "sass": "^1.14.2",
     "slate": "^0.43.0",
     "slate-plain-serializer": "^0.6.23",
     "slate-react": "^0.21.1"
   },
   "devDependencies": {
     "@babel/cli": "^7.1.2",
-    "@babel/core": "^7.1.2",
+    "@babel/core": "^7.1.5",
     "@babel/plugin-proposal-class-properties": "^7.1.0",
-    "@babel/preset-react": "^7.0.0"
+    "@babel/preset-env": "^7.1.5",
+    "@babel/preset-react": "^7.0.0",
+    "sass": "^1.14.3"
   }
 }

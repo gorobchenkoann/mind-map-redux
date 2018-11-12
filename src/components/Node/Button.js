@@ -1,6 +1,4 @@
 import React from 'react';
-import { IconContext } from 'react-icons';
-import { FaAngleDown, FaAngleUp } from 'react-icons/fa';
 
 export class Button extends React.Component {
     render() {
@@ -14,12 +12,8 @@ export class Button extends React.Component {
                 }}
             >
             {this.props.showEditor ? 
-                <IconContext.Provider value={{ color: '#e987d9'}}>
-                    <FaAngleUp />
-                </IconContext.Provider> :
-                <IconContext.Provider value={{ color: '#e987d9'}}>
-                    <FaAngleDown />
-                </IconContext.Provider>
+                <span>^</span> :
+                <span>v</span>
             }
             </button>
         )

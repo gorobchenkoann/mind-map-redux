@@ -1,25 +1,8 @@
-export  const initialState = {
-    nodes: {},
-    lines: {},        
-    currentLine: null
-}
+import { combineReducers } from 'redux';
+import { nodes } from './nodes';
+import { lines } from './lines';
 
-export function rootReducer(state = initialState, action) {
-    switch (action.type) {
-        case 'CREATE_NODE':
-            return {
-                ...state,
-                nodes: {
-                    ...state.nodes, 
-                    [action.id]: {
-                        text: action.text,
-                        x: action.x,
-                        y: action.y                  
-                    }
-                }                
-            }
-        default:
-            return state
-    }
-    
-}
+export const rootReducer = combineReducers({
+    nodes,
+    lines
+})

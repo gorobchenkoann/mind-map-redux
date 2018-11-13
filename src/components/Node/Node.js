@@ -1,5 +1,7 @@
 import React from 'react';
 import { Header, Button } from '../';
+import { connect } from 'react-redux';
+import { dragNode } from '../../actions';
 
 import styles from './Node.scss';
 
@@ -20,15 +22,7 @@ export class Node extends React.Component {
     state = {
         mouseOn: false,
         showEditor: true,
-    }
-    resize = {
-        isResizing: false,
-        id: null,
-        startW: null,
-        startH: null,
-        startX: null,
-        startY: null
-    } 
+    }    
 
     mouseEnterHandler = () => {
         this.setState({
@@ -40,9 +34,9 @@ export class Node extends React.Component {
         this.setState({
             mouseOn: false
         })
-    }
+    }    
 
-    btnClickHandler = (e) => {
+    btnClickHandler = e => {
         if (this.state.showEditor) {
             // for adaptive controllers
             e.target.closest('div').parentElement.style.minHeight = 0;
@@ -52,21 +46,20 @@ export class Node extends React.Component {
         })
     }
 
-    makeId() {
-        return Math.random().toString(36).substr(2, 9);
-    };
-
     render() {
-        let { id, x, y, title } = this.props;
-        return (     
+        let { id, position, sizes, title } = this.props;
+        return ( 
             <div  
                 id={id}                            
                 className={styles.node}
                 style={{
-                    top: y,
-                    left: x                                      
+                    width: '280px',
+                    minHeight: '160px',
+                    top: position.y,
+                    left: position.x,
+                    cursor: 'move'                                                         
                 }}        
-                onDoubleClick={(e) => {e.stopPropagation()}}   
+                onDoubleClick={(e) => {e.stopPropagation()}} 
                 onMouseEnter={this.mouseEnterHandler}
                 onMouseLeave={this.mouseLeaveHandler}        
             >      
@@ -76,14 +69,19 @@ export class Node extends React.Component {
                 <Controller id={id} position='right' mouseOn={this.state.mouseOn}/>
 
                 <Header 
-                    title={this.props.title}
-                    className={styles.header} 
+                    id={id}
+                    title={title}
                 >          
                     <Button 
                         onClick={this.btnClickHandler} 
                         className={styles.button} 
                         showEditor={this.state.showEditor}
-                    />
+                    >
+                    {this.state.showEditor ? 
+                        <span className={styles.span}>-</span> :
+                        <span className={styles.span}>+</span>
+                    }
+                    </Button>
                 </Header>                
                 
                 {this.state.showEditor && 
@@ -95,12 +93,11 @@ export class Node extends React.Component {
                     className={styles.button}
                     style={{
                         position: 'absolute',
-                        bottom: 10,
-                        right: 10,
+                        bottom: 0,
+                        right: 0,
                         cursor: 'nwse-resize'
                     }}
-                    >                        
-                        <span>>>></span>
+                    >
                     </button>
                 </>
                 }                

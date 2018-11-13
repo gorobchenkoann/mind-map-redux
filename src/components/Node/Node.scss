@@ -7,21 +7,9 @@ $controll-diameter: 14px;
     display: flex;
     flex-direction: column;
     position: absolute;
-    width: $node-width;
+    // width: $node-width;
     box-sizing: border-box;
     outline: none; 
-}
-
-.header {
-    display: flex;
-    height: $header-height;
-    padding: 10px;
-    background-color: #dadada;
-    box-sizing: inherit;
-
-    &:hover {
-        cursor: move;
-    }
 }
 
 .button {
@@ -35,10 +23,16 @@ $controll-diameter: 14px;
     // outline-color: #e987d9;
     outline: none;
 
-    * {
-        width: 100%;
-        height: auto;
-    }    
+    // * {
+    //     width: 100%;
+    //     height: auto;
+    // }    
+}
+
+.span {
+    font-size: 16px;
+    font-weight: 700;
+    color: #e987d9;
 }
 
 .controller {

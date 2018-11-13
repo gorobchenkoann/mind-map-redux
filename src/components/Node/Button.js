@@ -11,10 +11,7 @@ export class Button extends React.Component {
                     marginLeft: 'auto'
                 }}
             >
-            {this.props.showEditor ? 
-                <span>^</span> :
-                <span>v</span>
-            }
+            {this.props.children}
             </button>
         )
     }

@@ -16,6 +16,7 @@ class AppCompoment extends React.Component {
         startX: null,
         startY: null
     } 
+    line = null;
 
     startResize = e => {
         let node = e.target.closest('div').getBoundingClientRect();
@@ -52,8 +53,9 @@ class AppCompoment extends React.Component {
         let target = e.target.getAttribute('data-element');
         if (target === 'controller') {
             let from = e.target.getAttribute('id');
-            let to = e.target.getAttribute('id');
-            this.props.createLine(from, to);
+            this.line = {
+                from: from
+            }
         } else if (target === 'resize') {
             this.startResize(e);
         } else {
@@ -71,10 +73,16 @@ class AppCompoment extends React.Component {
             this.doResize(e);            
         }
     }
-    mouseUpHandler = () => {
+    mouseUpHandler = e => {
         this.currentNode = null;
         if (this.resize.isResizing) {
             this.stopResize();
+        }
+        if (this.line && e.target.getAttribute('data-element') === 'controller') {
+            let to = e.target.getAttribute('id');
+            this.props.createLine(this.line.from, to);
+
+            this.line = null;
         }
     }
     render() { 
@@ -86,6 +94,11 @@ class AppCompoment extends React.Component {
                 onMouseMove={this.mouseMoveHandler}
                 onMouseUp={this.mouseUpHandler}
             >
+                <svg className={styles.svg}>
+                    {Object.entries(this.props.lines).map(([id, line]) => 
+                        <Line from={line.from} to={line.to} id={id} key={id}/>                    
+                    )}
+                </svg>
                 {Object.entries(this.props.nodes).map(([id, node]) => (
                     <Node key={id} id={id} {...node}>
                         <Editor 

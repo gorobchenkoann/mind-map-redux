@@ -1,5 +1,5 @@
 import React from 'react';
-import { Controller, Button, Header } from './';
+import { Controllers, Button, Header } from './';
 
 import { connect } from 'react-redux';
 import { dragNode } from '../../actions';
@@ -51,10 +51,7 @@ export class Node extends React.Component {
                 onMouseEnter={this.mouseEnterHandler}
                 onMouseLeave={this.mouseLeaveHandler}        
             >      
-                <Controller id={id} position='top' mouseOn={this.state.mouseOn}/>
-                <Controller id={id} position='bottom' mouseOn={this.state.mouseOn}/>
-                <Controller id={id} position='left' mouseOn={this.state.mouseOn}/>
-                <Controller id={id} position='right' mouseOn={this.state.mouseOn}/>
+                <Controllers controllerId={id} mouseOn={this.state.mouseOn}/>
 
                 <Header id={id} title={title}>          
                     <Button 

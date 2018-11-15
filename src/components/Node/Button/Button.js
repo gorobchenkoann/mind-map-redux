@@ -1,11 +1,13 @@
 import React from 'react';
 
+import styles from './Button.scss';
+
 export class Button extends React.Component {
     render() {
         return (
             <button
                 onClick={this.props.onClick}
-                className={this.props.className}
+                className={styles.button}
                 style={{
                     alignSelf: 'center',
                     marginLeft: 'auto'

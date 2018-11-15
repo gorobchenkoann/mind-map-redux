@@ -1,22 +1,11 @@
 import React from 'react';
-import { Header, Button } from '../';
+import { Controller, Button, Header } from './';
+
 import { connect } from 'react-redux';
 import { dragNode } from '../../actions';
 
 import styles from './Node.scss';
-
-const Controller = ({id, position, mouseOn}) => {
-    return (        
-        <div 
-            style={{
-                visibility: mouseOn ? 'visible' : 'hidden'
-            }}
-            id={`${id}-${position}`} 
-            data-element='controller' 
-            className={`${styles.controller} ${styles[position]}`}
-        ></div>
-    )
-}
+import buttonStyles from './Button/Button.scss';
 
 export class Node extends React.Component {    
     state = {
@@ -56,8 +45,7 @@ export class Node extends React.Component {
                     width: '280px',
                     minHeight: '160px',
                     top: position.y,
-                    left: position.x,
-                    cursor: 'move'                                                         
+                    left: position.x                                                                            
                 }}        
                 onDoubleClick={(e) => {e.stopPropagation()}} 
                 onMouseEnter={this.mouseEnterHandler}
@@ -68,13 +56,9 @@ export class Node extends React.Component {
                 <Controller id={id} position='left' mouseOn={this.state.mouseOn}/>
                 <Controller id={id} position='right' mouseOn={this.state.mouseOn}/>
 
-                <Header 
-                    id={id}
-                    title={title}
-                >          
+                <Header id={id} title={title}>          
                     <Button 
                         onClick={this.btnClickHandler} 
-                        className={styles.button} 
                         showEditor={this.state.showEditor}
                     >
                     {this.state.showEditor ? 
@@ -90,13 +74,7 @@ export class Node extends React.Component {
 
                     <button
                     data-element='resize'
-                    className={styles.button}
-                    style={{
-                        position: 'absolute',
-                        bottom: 0,
-                        right: 0,
-                        cursor: 'nwse-resize'
-                    }}
+                    className={`${buttonStyles.button} ${styles.resize}`}
                     >
                     </button>
                 </>

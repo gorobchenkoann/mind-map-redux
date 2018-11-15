@@ -1,9 +1,9 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { editNodeTitle } from '../../actions';
+import { editNodeTitle } from '../../../actions';
 import styles from './Header.scss';
 
-export const HeaderCompoment = ({ id, title, children, editNodeTitle }) => {
+export const HeaderContainer = ({ id, title, children, editNodeTitle }) => {
     return (
         <div
             data-element='header'
@@ -29,4 +29,4 @@ const mapDispatchToProps = dispatch => {
 export const Header = connect(
     null,
     mapDispatchToProps
-)(HeaderCompoment)
+)(HeaderContainer)

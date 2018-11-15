@@ -1,0 +1,38 @@
+$controll-diameter: 14px;
+
+.controller {
+    position: absolute;
+    width: $controll-diameter;
+    height: $controll-diameter;
+    border-radius: 50%;
+    background-color: #e987d9;
+    opacity: 0.9;
+
+    &:hover {
+        cursor: pointer;
+    }
+}
+
+.top {
+    top: -($controll-diameter / 2);
+    left: 50%;
+    transform: translateX(-50%);
+}
+
+.bottom {
+    bottom: -($controll-diameter / 2);
+    left: 50%;
+    transform: translateX(-50%);
+}
+
+.left {
+    top: 50%;
+    transform: translateY(-50%);
+    left: -($controll-diameter / 2);
+}
+
+.right {
+    top: 50%;
+    transform: translateY(-50%);
+    right: -($controll-diameter / 2);
+}

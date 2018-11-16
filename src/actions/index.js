@@ -39,3 +39,14 @@ export const createLine = (from, to) => ({
 export const clearWorkspace = () => ({
     type: 'CLEAR_WORKSPACE'
 })
+
+export const saveWorkspace = (id, nodes, lines) => ({
+    type: 'SAVE_WORKSPACE',
+    id,
+    nodes,
+    lines
+})
+
+export const clearAll = () => ({
+    type: 'CLEAR_ALL'
+})

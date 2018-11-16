@@ -1,8 +1,5 @@
 import Plain from 'slate-plain-serializer';
-
-let createId = () => (
-    Math.random().toString(36).substr(2, 9)
-)
+import {createId} from '../utils/createId';
 
 const initialState = {}
 

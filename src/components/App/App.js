@@ -2,7 +2,7 @@ import React from 'react';
 import { Editor } from 'slate-react';
 import { Node, Line } from '..';
 import { connect } from 'react-redux';
-import { createNode, editNodeText, dragNode, resizeNode, createLine } from '../../actions';
+import { createNode, editNodeText, dragNode, resizeNode, createLine, clearWorkspace } from '../../actions';
 
 import styles from './App.scss';
 
@@ -85,29 +85,40 @@ class AppCompoment extends React.Component {
             this.line = null;
         }
     }
+
     render() { 
         return(
-            <div 
-                className={styles.container}
-                onDoubleClick={e => this.props.createNode(e.clientX, e.clientY)}
-                onMouseDown={this.mouseDownHandler}
-                onMouseMove={this.mouseMoveHandler}
-                onMouseUp={this.mouseUpHandler}
-            >
-                <svg className={styles.svg}>
-                    {Object.entries(this.props.lines).map(([id, line]) => 
-                        <Line from={line.from} to={line.to} id={id} key={id}/>                    
-                    )}
-                </svg>
-                {Object.entries(this.props.nodes).map(([id, node]) => (
-                    <Node key={id} id={id} {...node}>
-                        <Editor 
-                            className={styles.editor} 
-                            value={node.text}   
-                            onChange={(e) => this.props.editNodeText(id, e.value)}                   
-                        />
-                    </Node>
-                ))}           
+            <div className={styles.container}>
+                <div className={styles.sidebar}>
+                    <button 
+                        onDoubleClick={e=>{e.stopPropagation()}} 
+                        onClick={this.props.clearWorkspace}
+                        data-element='clear' 
+                        className={styles.clear}
+                    >Clear</button>
+                </div>
+                <div 
+                    className={styles.workspace}
+                    onDoubleClick={e => this.props.createNode(e.clientX, e.clientY)}
+                    onMouseDown={this.mouseDownHandler}
+                    onMouseMove={this.mouseMoveHandler}
+                    onMouseUp={this.mouseUpHandler}
+                >                
+                    <svg className={styles.svg}>
+                        {Object.entries(this.props.lines).map(([id, line]) => 
+                            <Line from={line.from} to={line.to} id={id} key={id}/>                    
+                        )}
+                    </svg>
+                    {Object.entries(this.props.nodes).map(([id, node]) => (
+                        <Node key={id} id={id} {...node}>
+                            <Editor 
+                                className={styles.editor} 
+                                value={node.text}   
+                                onChange={(e) => this.props.editNodeText(id, e.value)}                   
+                            />
+                        </Node>
+                    ))}                               
+                </div>
             </div>
         )
     }
@@ -126,7 +137,8 @@ const mapDispatchToProps = dispatch => {
         editNodeText: (id, text) => dispatch(editNodeText(id, text)),
         dragNode: (id, x, y) => dispatch(dragNode(id, x, y)),
         resizeNode: (id, width, height) => dispatch(resizeNode(id, width, height)),
-        createLine: (from, to) => dispatch(createLine(from, to))
+        createLine: (from, to) => dispatch(createLine(from, to)),
+        clearWorkspace: () => dispatch(clearWorkspace())
     }
 }  
 

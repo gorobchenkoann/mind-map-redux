@@ -34,4 +34,8 @@ export const createLine = (from, to) => ({
     type: 'CREATE_LINE',
     from,
     to
+}) 
+
+export const clearWorkspace = () => ({
+    type: 'CLEAR_WORKSPACE'
 })

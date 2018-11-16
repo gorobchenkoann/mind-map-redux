@@ -4,7 +4,9 @@ let createId = () => (
     Math.random().toString(36).substr(2, 9)
 )
 
-export function nodes(state = {}, action) {
+const initialState = {}
+
+export function nodes(state = initialState, action) {
     switch (action.type) {
         case 'CREATE_NODE':
             return {                
@@ -61,7 +63,8 @@ export function nodes(state = {}, action) {
                     }
                 }                
             }
-        
+        case 'CLEAR_WORKSPACE':
+            return initialState        
         default:
             return state
     }

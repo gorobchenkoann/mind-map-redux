@@ -2,7 +2,9 @@ let createId = () => (
     Math.random().toString(36).substr(2, 9)
 )
 
-export function lines(state = {}, action) {
+const initialState = {}
+
+export function lines(state = initialState, action) {
     switch (action.type) {        
         case 'CREATE_LINE':
         console.log('line')
@@ -17,6 +19,8 @@ export function lines(state = {}, action) {
             return {
 
             }
+        case 'CLEAR_WORKSPACE':
+            return initialState
         default:
             return state
     }

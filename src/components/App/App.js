@@ -1,10 +1,8 @@
 import React from 'react';
 import { Editor } from 'slate-react';
-import { Node, Line } from '..';
+import { Sidebar, Node, Line } from '..';
 import { connect } from 'react-redux';
-import { createNode, editNodeText, dragNode, resizeNode, createLine, clearWorkspace, clearAll, saveWorkspace} from '../../actions';
-import { isObjectEmpty } from '../../utils/isObjectEmpty';
-import { createId } from '../../utils/createId';
+import { createNode, editNodeText, dragNode, resizeNode, createLine} from '../../actions';
 
 import styles from './App.scss';
 
@@ -87,62 +85,12 @@ class AppCompoment extends React.Component {
 
             this.line = null;
         }
-    }
-
-    saveHandler = () => {           
-        let id = createId();  
-        if (!isObjectEmpty(this.props.nodes)) {
-            if (!this.currentMap) {
-                this.currentMap = id;
-                this.props.saveWorkspace(this.currentMap, this.props.nodes, this.props.lines);
-
-                let ls = JSON.parse(localStorage.getItem('maps'));                
-                localStorage.setItem('maps', 
-                    JSON.stringify({...ls, [this.currentMap]: {
-                        nodes:this.props.nodes, 
-                        lines: this.props.lines
-                }}));
-            } else {
-                console.log('current map exists')
-            } 
-        } else {
-            console.log('tut pusto')
-        }   
-    }
-
-    newHandler = () => {
-        this.currentMap = null;
-        this.props.clearWorkspace();        
-    }
-
-    clearHandler = () => {        
-        this.currentMap = null;
-        this.props.clearAll();
-        localStorage.clear();
-    }
+    }    
 
     render() { 
         return(
-            <div className={styles.container} onMouseDown={e => {e.preventDefault()}}>  
-                  <div className={styles.sidebar}>
-                    <button
-                        className={styles.button}
-                        onClick={this.newHandler}
-                    >New</button>
-                    <button                        
-                        className={styles.button}
-                        onClick={this.saveHandler}
-                    >Save</button>
-                    <button                         
-                        onClick={this.clearHandler}
-                        data-element='clear' 
-                        className={styles.button}
-                    >Delete all</button>
-                    
-                    {Object.entries(this.props.maps).map(([id, item], index) => 
-                        <button key={index} className={styles.button}>{id}</button>
-                    )}
-                </div>
+            <div className={styles.container} onMouseDown={e => {e.preventDefault()}}> 
+                <Sidebar />                  
                 <div 
                     className={styles.workspace}
                     onDoubleClick={e => this.props.createNode(e.clientX, e.clientY)}
@@ -184,10 +132,7 @@ const mapDispatchToProps = dispatch => {
         editNodeText: (id, text) => dispatch(editNodeText(id, text)),
         dragNode: (id, x, y) => dispatch(dragNode(id, x, y)),
         resizeNode: (id, width, height) => dispatch(resizeNode(id, width, height)),
-        createLine: (from, to) => dispatch(createLine(from, to)),
-        clearWorkspace: () => dispatch(clearWorkspace()),
-        clearAll: () => dispatch(clearAll()),
-        saveWorkspace: (id, nodes, lines) => dispatch(saveWorkspace(id, nodes, lines))
+        createLine: (from, to) => dispatch(createLine(from, to))
     }
 }  
 

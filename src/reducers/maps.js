@@ -1,4 +1,4 @@
-const initialState = {};
+const initialState = JSON.parse(localStorage.getItem('maps')) || {};
 
 export function maps(state = initialState, action) {
     switch (action.type) {
@@ -12,7 +12,7 @@ export function maps(state = initialState, action) {
                 }
             }
         case 'CLEAR_ALL':
-            return initialState
+            return {}
         default:
             return state
     }

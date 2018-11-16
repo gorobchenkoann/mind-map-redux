@@ -94,7 +94,14 @@ class AppCompoment extends React.Component {
         if (!isObjectEmpty(this.props.nodes)) {
             if (!this.currentMap) {
                 this.currentMap = id;
-                this.props.saveWorkspace(this.currentMap, this.props.nodes, this.props.lines)
+                this.props.saveWorkspace(this.currentMap, this.props.nodes, this.props.lines);
+
+                let ls = JSON.parse(localStorage.getItem('maps'));                
+                localStorage.setItem('maps', 
+                    JSON.stringify({...ls, [this.currentMap]: {
+                        nodes:this.props.nodes, 
+                        lines: this.props.lines
+                }}));
             } else {
                 console.log('current map exists')
             } 
@@ -111,11 +118,12 @@ class AppCompoment extends React.Component {
     clearHandler = () => {        
         this.currentMap = null;
         this.props.clearAll();
+        localStorage.clear();
     }
 
     render() { 
         return(
-            <div className={styles.container} onMouseDown={e => {e.preventDefault()}}>          
+            <div className={styles.container} onMouseDown={e => {e.preventDefault()}}>  
                   <div className={styles.sidebar}>
                     <button
                         className={styles.button}

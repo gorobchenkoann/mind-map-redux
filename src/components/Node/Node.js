@@ -1,8 +1,5 @@
 import React from 'react';
-import { Controllers, Button, Header } from './';
-
-import { connect } from 'react-redux';
-import { dragNode } from '../../actions';
+import { Controllers, Button, Header, TextEditor } from './';
 
 import styles from './Node.scss';
 import buttonStyles from './Button/Button.scss';
@@ -36,7 +33,7 @@ export class Node extends React.Component {
     }
 
     render() {
-        let { id, position, sizes, title } = this.props;
+        let { id, position, sizes, title, text } = this.props;
         return ( 
             <div  
                 id={id}                            
@@ -53,7 +50,7 @@ export class Node extends React.Component {
             >      
                 <Controllers controllerId={id} mouseOn={this.state.mouseOn}/>
 
-                <Header id={id} title={title}>          
+                <Header id={id} title={title} >          
                     <Button 
                         onClick={this.btnClickHandler} 
                         showEditor={this.state.showEditor}
@@ -67,7 +64,7 @@ export class Node extends React.Component {
                 
                 {this.state.showEditor && 
                 <>
-                    {this.props.children}
+                    <TextEditor value={text} />
 
                     <button
                     data-element='resize'

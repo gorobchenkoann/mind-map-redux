@@ -1,8 +1,7 @@
 import React from 'react';
-import { Editor } from 'slate-react';
 import { Sidebar, Node, Line } from '..';
 import { connect } from 'react-redux';
-import { createNode, editNodeText, dragNode, resizeNode, createLine} from '../../actions';
+import { createNode, dragNode, resizeNode, createLine} from '../../actions';
 
 import styles from './App.scss';
 
@@ -51,6 +50,7 @@ class AppCompoment extends React.Component {
     }
 
     mouseDownHandler = e => {
+        console.log(e.target)
         let target = e.target.getAttribute('data-element');
         if (target === 'controller') {
             let from = e.target.getAttribute('id');
@@ -104,13 +104,7 @@ class AppCompoment extends React.Component {
                         )}
                     </svg>
                     {Object.entries(this.props.nodes).map(([id, node]) => (
-                        <Node key={id} id={id} {...node}>
-                            <Editor 
-                                className={styles.editor} 
-                                value={node.text}   
-                                onChange={(e) => this.props.editNodeText(id, e.value)}                   
-                            />
-                        </Node>
+                        <Node key={id} id={id} {...node} />
                     ))}                               
                 </div>
             </div>
@@ -129,7 +123,6 @@ const mapStateToProps = state => {
 const mapDispatchToProps = dispatch => {
     return {
         createNode: (x, y) => dispatch(createNode(x, y)),
-        editNodeText: (id, text) => dispatch(editNodeText(id, text)),
         dragNode: (id, x, y) => dispatch(dragNode(id, x, y)),
         resizeNode: (id, width, height) => dispatch(resizeNode(id, width, height)),
         createLine: (from, to) => dispatch(createLine(from, to))

@@ -22,7 +22,7 @@ export class Line extends React.Component {
                 L ${coords.x1 + shift.horizontal} 
                 ${coords.y2}
                 L ${coords.x2}
-                ${coords.y2} `,
+                ${coords.y2} `,           
             vertical: `M ${coords.x1} 
                 ${coords.y1}
                 L ${coords.x1} 

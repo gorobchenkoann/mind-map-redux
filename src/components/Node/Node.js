@@ -33,7 +33,8 @@ export class Node extends React.Component {
     }
 
     render() {
-        let { id, position, sizes, title, text } = this.props;
+        let { id, position, sizes, title, text, children } = this.props;
+
         return ( 
             <div  
                 id={id}                            
@@ -64,7 +65,8 @@ export class Node extends React.Component {
                 
                 {this.state.showEditor && 
                 <>
-                    <TextEditor value={text} />
+                    {/* <TextEditor value={text} /> */}
+                    {children}
 
                     <button
                     data-element='resize'

@@ -5,14 +5,20 @@ import { editNodeText } from '../../../actions';
 
 import styles from './TextEditor.scss';
 
-const TextEditorComponent = ({value}) => {
-    return (
-        <Editor 
-            className={styles.editor} 
-            value={value}   
-            onChange={(e) => this.props.editNodeText(id, e.value)}                   
-        />
-    )
+
+export class TextEditorComponent extends React.Component {
+    render() {
+        let { value, nodeId, editNodeText } = this.props;
+        return (
+            <>
+            <Editor 
+                className={styles.editor} 
+                value={value}   
+                onChange={(e) => editNodeText(nodeId, e.value)}                   
+            />
+            </>
+        )
+    }
 }
 
 const mapDispatchToProps = dispatch => {

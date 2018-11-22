@@ -1,7 +1,9 @@
 import React from 'react';
-import { Sidebar, Node, Line } from '..';
 import { connect } from 'react-redux';
-import { createNode, dragNode, resizeNode, createLine} from '../../actions';
+import { Editor } from 'slate-react';
+import { Sidebar, Node, Line } from '..';
+import { createNode, dragNode, resizeNode, createLine, editNodeText} from '../../actions';
+
 
 import styles from './App.scss';
 
@@ -50,7 +52,6 @@ class AppCompoment extends React.Component {
     }
 
     mouseDownHandler = e => {
-        console.log(e.target)
         let target = e.target.getAttribute('data-element');
         if (target === 'controller') {
             let from = e.target.getAttribute('id');
@@ -59,7 +60,8 @@ class AppCompoment extends React.Component {
             }
         } else if (target === 'resize') {
             this.startResize(e);
-        } else {
+        } 
+        else {
             let id = e.target.parentNode.getAttribute('id');
             this.currentNode = id;
         }     
@@ -89,7 +91,7 @@ class AppCompoment extends React.Component {
 
     render() { 
         return(
-            <div className={styles.container} onMouseDown={e => {e.preventDefault()}}> 
+            <div className={styles.container}> 
                 <Sidebar />                  
                 <div 
                     className={styles.workspace}
@@ -104,7 +106,13 @@ class AppCompoment extends React.Component {
                         )}
                     </svg>
                     {Object.entries(this.props.nodes).map(([id, node]) => (
-                        <Node key={id} id={id} {...node} />
+                        <Node key={id} id={id} {...node} >
+                            <Editor 
+                                className={styles.editor} 
+                                value={node.text}   
+                                onChange={(e) => this.props.editNodeText(id, e.value)}                   
+                            />
+                        </Node>
                     ))}                               
                 </div>
             </div>
@@ -125,7 +133,8 @@ const mapDispatchToProps = dispatch => {
         createNode: (x, y) => dispatch(createNode(x, y)),
         dragNode: (id, x, y) => dispatch(dragNode(id, x, y)),
         resizeNode: (id, width, height) => dispatch(resizeNode(id, width, height)),
-        createLine: (from, to) => dispatch(createLine(from, to))
+        createLine: (from, to) => dispatch(createLine(from, to)),
+        editNodeText: (id, text) => dispatch(editNodeText(id, text))
     }
 }  
 

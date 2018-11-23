@@ -1,0 +1,24 @@
+.header {
+    padding: 5px;
+    background-color: #ffffff;
+    border-bottom: 1px dashed #dadada;
+}
+
+.editor {
+    flex-grow: 1;
+    min-height: 100px;
+    padding: 10px;
+    background-color: #ffffff;
+    outline: none;
+    cursor: initial;
+}
+
+.header button {    
+    width: 20px;
+    height: 20px;
+    padding: 0;
+    margin-right: 5px;
+    background: transparent;
+    border: none;
+    cursor: pointer;
+}

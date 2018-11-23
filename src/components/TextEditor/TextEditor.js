@@ -36,22 +36,7 @@ export class TextEditor extends React.Component {
 
     setStrikeMark = () => {
         this.editorRef.current.toggleMark('strike');
-    }
-
-    renderMark = (props, editor, next) => {
-        switch (props.mark.type) {
-            case 'bold':
-                return <BoldMark {...props} />
-            case 'italic':
-                return <ItalicMark {...props} />
-            case 'underline':
-                return <UnderlineMark {...props} />
-            case 'strike':
-                return <StrikeMark {...props} />
-            default:
-                return next();
-        }
-    }
+    }   
 
     render() {
         let { value, onChange } = this.props;
@@ -67,11 +52,25 @@ export class TextEditor extends React.Component {
                 ref={this.editorRef}
                 className={styles.editor} 
                 value={value}   
-                onChange={onChange}  
-                // onKeyDown={this.onKeyDown}   
+                onChange={onChange}   
                 renderMark={this.renderMark}              
             />
             </>
         )
+    }
+
+    renderMark = (props, editor, next) => {
+        switch (props.mark.type) {
+            case 'bold':
+                return <BoldMark {...props} />
+            case 'italic':
+                return <ItalicMark {...props} />
+            case 'underline':
+                return <UnderlineMark {...props} />
+            case 'strike':
+                return <StrikeMark {...props} />
+            default:
+                return next();
+        }
     }
 }

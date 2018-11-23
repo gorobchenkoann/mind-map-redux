@@ -1,6 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { clearWorkspace, clearAll, saveWorkspace } from '../../actions';
+import { clearWorkspace, clearAll, saveWorkspace, setCurrentMap } from '../../actions';
 import { isObjectEmpty } from '../../utils/isObjectEmpty';
 import { createId } from '../../utils/createId';
 import styles from './Sidebar.scss';
@@ -12,13 +12,16 @@ class SidebarComponent extends React.Component {
             if (!this.currentMap) {
                 this.currentMap = id;
                 this.props.saveWorkspace(this.currentMap, this.props.nodes, this.props.lines);
-
+                console.log(this.props.maps)
                 let ls = JSON.parse(localStorage.getItem('maps'));                
                 localStorage.setItem('maps', 
-                    JSON.stringify({...ls, [this.currentMap]: {
-                        nodes:this.props.nodes, 
-                        lines: this.props.lines
-                }}));
+                    JSON.stringify({...ls, 
+                        [this.currentMap]: {
+                            nodes: this.props.nodes,
+                            lines: this.props.lines
+                        }
+                    })
+                );
             } else {
                 console.log('current map exists')
             } 
@@ -27,6 +30,7 @@ class SidebarComponent extends React.Component {
         }   
     }
 
+    
     newHandler = () => {
         this.currentMap = null;
         this.props.clearWorkspace();        
@@ -36,6 +40,10 @@ class SidebarComponent extends React.Component {
         this.currentMap = null;
         this.props.clearAll();
         localStorage.clear();
+    }
+
+    setCurrentMapHandler = (id) => {
+        this.props.setCurrentMap(id);
     }
 
     render() {
@@ -56,8 +64,9 @@ class SidebarComponent extends React.Component {
                 >Delete all</button>
                 
                 {Object.entries(this.props.maps).map(([id, item], index) => 
-                    <button key={index} className={styles.button}>{id}</button>
+                    <button key={index} className={styles.button} onClick={() =>{this.setCurrentMapHandler(id)}}>{id}</button>
                 )}
+
             </div>
         )
     }
@@ -67,7 +76,8 @@ const mapStateToProps = state => {
     return {
         nodes: state.nodes,
         lines: state.lines,
-        maps: state.maps
+        maps: state.maps,
+        currentMap: state.currentMap
     }
 }
 
@@ -75,7 +85,8 @@ const mapDispatchToProps = dispatch => {
     return {
         clearWorkspace: () => dispatch(clearWorkspace()),
         clearAll: () => dispatch(clearAll()),
-        saveWorkspace: (id, nodes, lines) => dispatch(saveWorkspace(id, nodes, lines))
+        saveWorkspace: (id, nodes, lines) => dispatch(saveWorkspace(id, nodes, lines)),
+        setCurrentMap: (id) => dispatch(setCurrentMap(id))
     }
 }  
 

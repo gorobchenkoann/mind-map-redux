@@ -1,8 +1,9 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { Editor } from 'slate-react';
+import { Value } from 'slate';
 import { Sidebar, Node, Line, TextEditor } from '..';
-import { createNode, dragNode, resizeNode, createLine, editNodeText} from '../../actions';
+import { createNode, dragNode, resizeNode, createLine, editNodeText } from '../../actions';
 
 import styles from './App.scss';
 
@@ -88,9 +89,34 @@ class AppCompoment extends React.Component {
         }
     }    
 
+    changeHandler = (id, e) => {
+        this.props.editNodeText(id, e.value);
+    }
+
+    kekHandler = (id, e) => {
+        console.log('kek')
+        console.log(id)
+        this.props.editNodeText(id, e.value);
+    }
+
+    showCurrentMap = () => {
+        let id = this.props.currentMap;
+        let currentMap = this.props.maps[id]; 
+        return (         
+            Object.entries(currentMap['nodes']).map(([id, node]) => 
+                <Node key={id} id={id} {...node} >
+                    <TextEditor 
+                        value={Value.fromJSON(node.text)} 
+                        onChange={(e) => this.props.editNodeText(id, e.value)}
+                    />
+                </Node>
+            )            
+        )        
+    }
+
     render() { 
-        return(
-            <div className={styles.container}> 
+        return(            
+            <div className={styles.container}>             
                 <Sidebar />                  
                 <div 
                     className={styles.workspace}
@@ -98,20 +124,28 @@ class AppCompoment extends React.Component {
                     onMouseDown={this.mouseDownHandler}
                     onMouseMove={this.mouseMoveHandler}
                     onMouseUp={this.mouseUpHandler}
-                >                
-                    <svg className={styles.svg}>
-                        {Object.entries(this.props.lines).map(([id, line]) => 
-                            <Line from={line.from} to={line.to} id={id} key={id}/>                    
-                        )}
-                    </svg>
-                    {Object.entries(this.props.nodes).map(([id, node]) => (
-                        <Node key={id} id={id} {...node} >
-                            <TextEditor 
-                                value={node.text} 
-                                onChange={(e) => this.props.editNodeText(id, e.value)}
-                            />
-                        </Node>
-                    ))}                               
+                >               
+                   
+                    {this.props.currentMap ? 
+                        this.showCurrentMap() 
+                        :
+                        <>
+                        <svg className={styles.svg}>
+                            {Object.entries(this.props.lines).map(([id, line]) => 
+                                <Line from={line.from} to={line.to} id={id} key={id}/>                    
+                            )}
+                        </svg> 
+                        {Object.entries(this.props.nodes).map(([id, node]) => (
+                            <Node key={id} id={id} {...node} >
+                                <TextEditor 
+                                    value={node.text} 
+                                    onChange={(e) => this.changeHandler(id, e)}
+                                />
+                            </Node>
+                        ))}
+                        </>
+                    }                    
+
                 </div>
             </div>
         )
@@ -122,7 +156,8 @@ const mapStateToProps = state => {
     return {
         nodes: state.nodes,
         lines: state.lines,
-        maps: state.maps
+        maps: state.maps,
+        currentMap: state.currentMap
     }
 }
 
@@ -132,7 +167,7 @@ const mapDispatchToProps = dispatch => {
         dragNode: (id, x, y) => dispatch(dragNode(id, x, y)),
         resizeNode: (id, width, height) => dispatch(resizeNode(id, width, height)),
         createLine: (from, to) => dispatch(createLine(from, to)),
-        editNodeText: (id, text) => dispatch(editNodeText(id, text))
+        editNodeText: (id, text) => dispatch(editNodeText(id, text))        
     }
 }  
 

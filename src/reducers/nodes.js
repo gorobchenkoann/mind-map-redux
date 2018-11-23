@@ -61,7 +61,9 @@ export function nodes(state = initialState, action) {
                 }                
             }
         case 'CLEAR_WORKSPACE':
-            return initialState        
+            return initialState  
+        case 'SET_CURRENT_MAP':
+            console.log(state)    
         default:
             return state
     }

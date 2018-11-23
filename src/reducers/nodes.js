@@ -22,7 +22,6 @@ export function nodes(state = initialState, action) {
                 }                
             }
         case 'EDIT_NODE_TEXT':
-            console.log('kekikeki')
             return {
                 ...state,
                 [action.id]: {

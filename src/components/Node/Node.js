@@ -1,5 +1,5 @@
 import React from 'react';
-import { Controllers, Button, Header, TextEditor } from './';
+import { Controllers, Button, Header } from './';
 
 import styles from './Node.scss';
 import buttonStyles from './Button/Button.scss';
@@ -65,8 +65,7 @@ export class Node extends React.Component {
                 
                 {this.state.showEditor && 
                 <>
-                    {/* <TextEditor value={text} /> */}
-                    {children}
+                    {children} 
 
                     <button
                     data-element='resize'

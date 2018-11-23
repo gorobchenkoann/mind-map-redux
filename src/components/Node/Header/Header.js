@@ -9,8 +9,7 @@ export class HeaderContainer extends React.Component {
             <div
                 data-element='header'
                 className={styles.header}
-            >
-                {console.log(this.props.editNodeTitle)}
+            >                
                 <input 
                     className={styles.input}
                     type='text' 

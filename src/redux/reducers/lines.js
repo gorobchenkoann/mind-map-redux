@@ -1,4 +1,4 @@
-import {createId} from '../utils/createId';
+import {createId} from '../../utils/createId';
 const initialState = {}
 
 export function lines(state = initialState, action) {

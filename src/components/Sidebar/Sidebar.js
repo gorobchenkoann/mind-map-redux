@@ -1,6 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { clearWorkspace, clearAll, saveWorkspace, setCurrentMap } from '../../actions';
+import { clearWorkspace, clearAll, saveWorkspace, setCurrentMap } from '../../redux/actions';
 import { isObjectEmpty } from '../../utils/isObjectEmpty';
 import { createId } from '../../utils/createId';
 import styles from './Sidebar.scss';

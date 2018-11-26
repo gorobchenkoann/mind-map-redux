@@ -1,7 +1,11 @@
 import Plain from 'slate-plain-serializer';
-import {createId} from '../utils/createId';
+import {createId} from '../../utils/createId';
 
 const initialState = {}
+const NODE_SIZES = {
+    width: 280,
+    height: 160
+}
 
 export function nodes(state = initialState, action) {
     switch (action.type) {
@@ -14,8 +18,8 @@ export function nodes(state = initialState, action) {
                         height: 160
                     },
                     position: {
-                        x: action.x - 140,
-                        y: action.y - 70,
+                        x: action.x - NODE_SIZES.width / 2,
+                        y: action.y,
                     }, 
                     text: Plain.deserialize(''),  
                     title: 'Node'   

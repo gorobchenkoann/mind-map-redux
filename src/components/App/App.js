@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import { Editor } from 'slate-react';
 import { Value } from 'slate';
 import { Sidebar, Node, Line, TextEditor } from '..';
-import { createNode, dragNode, resizeNode, createLine, editNodeText } from '../../actions';
+import { createNode, dragNode, resizeNode, createLine, editNodeText } from '../../redux/actions';
 
 import styles from './App.scss';
 
@@ -68,8 +68,13 @@ class AppCompoment extends React.Component {
     }
     mouseMoveHandler = e => {
         if (this.currentNode) {
-            let x = e.clientX - 140;
-            let y = e.clientY - 70;
+            let shiftX = e.currentTarget.getBoundingClientRect().left; // 'left' of container
+            let coords = {
+                x: e.clientX - shiftX,
+                y: e.clientY
+            }
+            let x = coords.x - 140;
+            let y = coords.y - 70;
             this.props.dragNode(this.currentNode, x, y)
         }
         if (this.resize.isResizing) {
@@ -88,6 +93,15 @@ class AppCompoment extends React.Component {
             this.line = null;
         }
     }    
+
+    doubleClickHandler = e => {
+        let shiftX = e.currentTarget.getBoundingClientRect().left; // 'left' of container
+        let coords = {
+            x: e.clientX - shiftX,
+            y: e.clientY
+        }
+        this.props.createNode(coords.x, coords.y);
+    }
 
     changeHandler = (id, e) => {
         this.props.editNodeText(id, e.value);
@@ -120,7 +134,7 @@ class AppCompoment extends React.Component {
                 <Sidebar />                  
                 <div 
                     className={styles.workspace}
-                    onDoubleClick={e => this.props.createNode(e.clientX, e.clientY)}
+                    onDoubleClick={this.doubleClickHandler}
                     onMouseDown={this.mouseDownHandler}
                     onMouseMove={this.mouseMoveHandler}
                     onMouseUp={this.mouseUpHandler}

@@ -1,6 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { editNodeTitle } from '../../../actions';
+import { editNodeTitle } from '../../../redux/actions';
 import styles from './Header.scss';
 
 export class HeaderContainer extends React.Component {

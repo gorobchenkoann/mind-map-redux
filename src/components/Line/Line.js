@@ -1,13 +1,14 @@
 import React from 'react';
 
 export class Line extends React.Component {
-    drawLine(from, to, key) {        
+    drawLine(from, to, key) {      
+        let parentCoordX = document.getElementById(from).parentElement.parentElement.getBoundingClientRect().left;  
         let fromNode = document.getElementById(from).getBoundingClientRect();
         let toNode = document.getElementById(to).getBoundingClientRect();
         let coords = {
-            x1: fromNode.left + 7,
+            x1: fromNode.left - parentCoordX + 7,
             y1: fromNode.top + 7,
-            x2: toNode.left + 7,
+            x2: toNode.left - parentCoordX + 7,
             y2: toNode.top + 7
         }
         let shift = {

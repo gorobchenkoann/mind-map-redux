@@ -113,12 +113,6 @@ class AppCompoment extends React.Component {
         this.props.editNodeText(id, e.value);
     }
 
-    kekHandler = (id, e) => {
-        console.log('kek')
-        console.log(id)
-        this.props.editNodeText(id, e.value);
-    }
-
     showCurrentMap = () => {
         let id = this.props.currentMap;
         let currentMap = this.props.maps[id]; 

@@ -71,11 +71,14 @@ class AppCompoment extends React.Component {
             let nodeElement = document.getElementById(this.currentNode);
             let node = nodeElement.getBoundingClientRect();
             let workspace = e.currentTarget;    
-            console.log(e.clientY, node.height, workspace.getBoundingClientRect())
+            console.log(workspace, e.clientX, workspace.getBoundingClientRect())
             let coords = {
                 x: e.clientX - workspace.offsetLeft - node.width / 2,
                 y: e.clientY - node.height / 2
-            }            
+            }      
+            if (coords.x + 280 > workspace.getBoundingClientRect().width) {
+                workspace.style.width = workspace.getBoundingClientRect().width + 280 + 'px';
+            }
             // if (coords.x < 0) {
             //     coords.x = 0;
             // }       

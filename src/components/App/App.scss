@@ -1,14 +1,14 @@
 .container {
     display: flex;
     flex-wrap: nowrap;
-    width: 100vw;
+    min-width: 100vw;
     min-height: 100vh;
     overflow: hidden;
     background-color: #f2eef5;
 }
 
 .workspace {
-    width: 100%;
+    flex-shrink: 0;
     position: relative;  
     flex-grow: 1;
     min-height: 100vh;  

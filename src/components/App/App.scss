@@ -12,7 +12,14 @@
     position: relative;  
     flex-grow: 1;
     min-height: 100vh;  
-    z-index: 10;  
+    z-index: 10;      
+    box-sizing: border-box;
+}
+
+.workspace > div {
+    height: 100vh;
+    box-sizing: border-box;
+    border: 1px dashed red;
 }
 
 .svg {

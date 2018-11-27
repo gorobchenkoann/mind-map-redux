@@ -70,23 +70,24 @@ class AppCompoment extends React.Component {
         if (this.currentNode) {
             let nodeElement = document.getElementById(this.currentNode);
             let node = nodeElement.getBoundingClientRect();
-            let workspace = e.currentTarget.getBoundingClientRect();                 
+            let workspace = e.currentTarget;    
+            console.log(e.clientY, node.height, workspace.getBoundingClientRect())
             let coords = {
-                x: e.clientX - workspace.left - node.width / 2,
+                x: e.clientX - workspace.offsetLeft - node.width / 2,
                 y: e.clientY - node.height / 2
             }            
-            if (coords.x < 0) {
-                coords.x = 0;
-            }       
-            if (coords.x + workspace.left + node.width / 2 > workspace.width) {
-                coords.x = workspace.width - node.width; 
-            }
-            if (coords.y < 0) {
-                coords.y = 0;
-            }
-            if (coords.y + node.height > workspace.height) {
-                coords.y = workspace.height - node.height;
-            }   
+            // if (coords.x < 0) {
+            //     coords.x = 0;
+            // }       
+            // if (coords.x + workspace.offsetLeft + node.width / 2 > workspace.width) {
+            //     coords.x = workspace.width - node.width; 
+            // }
+            // if (coords.y < 0) {
+            //     coords.y = 0;
+            // }
+            // if (coords.y + node.height > workspace.height) {
+            //     coords.y = workspace.height - node.height;
+            // }   
             this.props.dragNode(this.currentNode, coords.x, coords.y)            
         }
         if (this.resize.isResizing) {
@@ -122,7 +123,7 @@ class AppCompoment extends React.Component {
     }
 
     wheelHandler = e => {  
-        let workspace = document.querySelector('[data-element="workspace"');
+        let workspace = document.querySelector('[data-element="worklol"');
         if (this.scale > 70 && this.scale < 130) {
             e.deltaY > 0 ? this.scale += 5 : this.scale -= 5;
         } 
@@ -163,6 +164,7 @@ class AppCompoment extends React.Component {
                     onMouseUp={this.mouseUpHandler}
                     onWheel={this.wheelHandler}                    
                 >               
+                <div data-element='worklol'>
                     {this.props.currentMap ? 
                         this.showCurrentMap() 
                         :
@@ -183,6 +185,7 @@ class AppCompoment extends React.Component {
                         ))}
                         </>
                     }                    
+                    </div>
 
                 </div>
             </div>

@@ -150,7 +150,7 @@ class AppCompoment extends React.Component {
                             )}
                         </svg> 
                         {Object.entries(this.props.nodes).map(([id, node]) => (
-                            <Node key={id} id={id} {...node} editNodeTitle={this.props.editNodeTitle}>
+                            <Node key={id} id={id} {...node}>
                                 <TextEditor 
                                     value={node.text} 
                                     onChange={(e) => this.changeHandler(id, e)}
@@ -181,8 +181,7 @@ const mapDispatchToProps = dispatch => {
         dragNode: (id, x, y) => dispatch(dragNode(id, x, y)),
         resizeNode: (id, width, height) => dispatch(resizeNode(id, width, height)),
         createLine: (from, to) => dispatch(createLine(from, to)),
-        editNodeText: (id, text) => dispatch(editNodeText(id, text)),
-        editNodeTitle: (id, title) => dispatch(editNodeTitle(id, title))  
+        editNodeText: (id, text) => dispatch(editNodeText(id, text))
     }
 }  
 

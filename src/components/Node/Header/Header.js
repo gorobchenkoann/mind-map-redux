@@ -1,10 +1,12 @@
 import React from 'react';
+import { connect } from 'react-redux';
+import { editNodeTitle } from '../../../redux/actions';
 
 import styles from './Header.scss';
 
-export class Header extends React.Component {
+class HeaderComponent extends React.Component {
     changeHandler = (id, e) => {
-        this.props.editNodeTitle(id, e.value);
+        this.props.dispatch(editNodeTitle(id, e.target.value))
     }
 
     render() {
@@ -25,3 +27,5 @@ export class Header extends React.Component {
         )
     }
 }
+
+export const Header = connect()(HeaderComponent)

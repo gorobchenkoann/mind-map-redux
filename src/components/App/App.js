@@ -19,6 +19,7 @@ class AppCompoment extends React.Component {
         startY: null
     } 
     line = null;
+    scale = 100;
 
     startResize = e => {
         let node = e.target.closest('div').getBoundingClientRect();
@@ -37,13 +38,7 @@ class AppCompoment extends React.Component {
             let node = document.getElementById(this.resize.id);
             let newWidth = this.resize.startW + (e.clientX - this.resize.startX);
             let newHeight = this.resize.startH + (e.clientY - this.resize.startY);
-
-            if (newWidth >= 220 && newHeight >= 160) {
-                node.style.width = `${newWidth}px`;
-                node.style.minHeight  = `${newHeight}px`;
-            }
-
-            this.props.resizeNode(this.resize.id, newWidth, newHeight)
+            this.props.resizeNode(this.resize.id, newWidth, newHeight);
         }
     }
 
@@ -126,6 +121,20 @@ class AppCompoment extends React.Component {
         this.props.editNodeText(id, e.value);
     }
 
+    wheelHandler = e => {  
+        let workspace = document.querySelector('[data-element="workspace"');
+        if (this.scale > 70 && this.scale < 130) {
+            e.deltaY > 0 ? this.scale += 5 : this.scale -= 5;
+        } 
+        if (this.scale === 70 && e.deltaY > 0) {
+            this.scale += 5;
+        }
+        if (this.scale === 130 && e.deltaY < 0) {
+            this.scale -= 5;
+        }
+        workspace.style.transform = `scale(${this.scale / 100})`;  
+    }
+
     showCurrentMap = () => {
         let id = this.props.currentMap;
         let currentMap = this.props.maps[id]; 
@@ -152,8 +161,8 @@ class AppCompoment extends React.Component {
                     onMouseDown={this.mouseDownHandler}
                     onMouseMove={this.mouseMoveHandler}
                     onMouseUp={this.mouseUpHandler}
+                    onWheel={this.wheelHandler}                    
                 >               
-                    <div className={styles.dropArea}></div>
                     {this.props.currentMap ? 
                         this.showCurrentMap() 
                         :

@@ -2,13 +2,15 @@ $side_bar_width_min: 60px;
 $side_bar_width_max: 120px;
 
 .sidebar {
+    position: relative;
     display: flex;
     flex-direction: column;
     width: $side_bar_width_max;
     padding: 10px;
     min-height: 100vh;
-    background: rgba(0, 0, 0, .1);   
+    background: #e6e6e6; 
     box-sizing: border-box; 
+    z-index: 20;
 }
 
 .button {

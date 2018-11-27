@@ -1,8 +1,7 @@
 .node {
-    display: flex;
-    flex-direction: column;
     position: absolute;
-    // width: $node-width;
+    display: flex;
+    flex-direction: column;    
     box-sizing: border-box;
     outline: none; 
     cursor: move;

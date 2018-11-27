@@ -4,14 +4,15 @@
     width: 100vw;
     min-height: 100vh;
     overflow: hidden;
+    background-color: #f2eef5;
 }
 
 .workspace {
     width: 100%;
     position: relative;  
     flex-grow: 1;
-    min-height: 100vh;
-    background-color: #f2eef5;
+    min-height: 100vh;  
+    z-index: 10;  
 }
 
 .svg {
@@ -32,4 +33,10 @@
     background: #dadada;
     border-bottom-left-radius: 10px;
     border-top-left-radius: 10px;
+}
+
+h3 {
+    position: absolute;
+    top: 0;
+    right: 0;
 }

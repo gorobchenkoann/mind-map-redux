@@ -64,6 +64,15 @@ export function nodes(state = initialState, action) {
                     }
                 }                
             }
+        case 'REMOVE_NODE':
+            let newState = Object.keys(state)
+                .filter(key => key !== action.id)
+                .reduce((result, current) => {
+                    result[current] = state[current]; 
+                    return result
+                }, {});
+            console.log(newState)
+            return newState
         case 'CLEAR_WORKSPACE':
             return initialState  
         case 'SET_CURRENT_MAP':

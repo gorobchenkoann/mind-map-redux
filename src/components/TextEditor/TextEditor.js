@@ -1,5 +1,7 @@
 import React from 'react';
+import { connect } from 'react-redux';
 import { Editor } from 'slate-react';
+import { removeNode } from '../../redux/actions';
 
 import styles from './TextEditor.scss';
 
@@ -19,7 +21,7 @@ function StrikeMark(props) {
     return <s>{props.children}</s>
 }
 
-export class TextEditor extends React.Component {
+export class TextEditorComponent extends React.Component {
     editorRef = React.createRef();
 
     setBoldMark = () => {
@@ -38,15 +40,22 @@ export class TextEditor extends React.Component {
         this.editorRef.current.toggleMark('strike');
     }   
 
+    removeNode = e => {
+        let id = e.target.parentNode.parentNode.getAttribute('id');
+        this.props.dispatch(removeNode(id));
+    }
+
     render() {
         let { value, onChange } = this.props;
         return (
             <>
-            <div className={styles.header}>
+            <div className={styles.toolbar}>
                 <button onClick={this.setBoldMark}><b>B</b></button>
                 <button onClick={this.setItalicMark}><i>I</i></button>
                 <button onClick={this.setUnderlineMark}><u>U</u></button>
                 <button onClick={this.setStrikeMark}><s>S</s></button>
+
+                <a onClick={this.removeNode} title='Delete node'>x</a>
             </div>
             <Editor 
                 ref={this.editorRef}
@@ -74,3 +83,5 @@ export class TextEditor extends React.Component {
         }
     }
 }
+
+export const TextEditor = connect()(TextEditorComponent)

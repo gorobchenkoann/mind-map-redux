@@ -55,3 +55,8 @@ export const setCurrentMap = (id) =>({
     type: 'SET_CURRENT_MAP',
     id
 })
+
+export const removeNode = (id) => ({
+    type: 'REMOVE_NODE',
+    id
+})

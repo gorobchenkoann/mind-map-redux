@@ -1,4 +1,5 @@
-.header {
+.toolbar {
+    display: flex;
     padding: 5px;
     background-color: #ffffff;
     border-bottom: 1px dashed #dadada;
@@ -13,12 +14,28 @@
     cursor: initial;
 }
 
-.header button {    
+.toolbar a,
+.toolbar button {
     width: 20px;
     height: 20px;
     padding: 0;
+}
+
+
+.toolbar button {
     margin-right: 5px;
     background: transparent;
-    border: none;
-    cursor: pointer;
+    border: none;    
+    outline: none; 
+    cursor: pointer;   
+}
+
+.toolbar a {
+    margin-left: auto;
+    color: #8f0000;
+    font-weight: 700;
+
+    &:hover {
+        cursor: pointer;
+    }
 }

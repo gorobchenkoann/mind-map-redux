@@ -3,10 +3,11 @@
     flex-wrap: nowrap;
     width: 100vw;
     min-height: 100vh;
-    overflow-x: hidden;
+    overflow: hidden;
 }
 
 .workspace {
+    width: 100%;
     position: relative;  
     flex-grow: 1;
     min-height: 100vh;

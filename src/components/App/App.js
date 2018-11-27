@@ -70,16 +70,30 @@ class AppCompoment extends React.Component {
             this.currentNode = id;
         }     
     }
+
     mouseMoveHandler = e => {
         if (this.currentNode) {
-            let shiftX = e.currentTarget.getBoundingClientRect().left; // 'left' of container
+            let nodeElement = document.getElementById(this.currentNode);
+            let node = nodeElement.getBoundingClientRect();
+            let workspace = e.currentTarget.getBoundingClientRect();                 
             let coords = {
-                x: e.clientX - shiftX,
-                y: e.clientY
+                x: e.clientX - workspace.left - node.width / 2,
+                y: e.clientY - node.height / 2
+            }            
+            if (coords.x < 0) {
+                coords.x = 0;
+            }       
+            if (coords.x + workspace.left + node.width / 2 > workspace.width) {
+                coords.x = workspace.width - node.width; 
             }
-            let x = coords.x - 140;
-            let y = coords.y - 70;
-            this.props.dragNode(this.currentNode, x, y)            
+            if (coords.y < 0) {
+                coords.y = 0;
+            }
+            if (coords.y + node.height > workspace.height) {
+                coords.y = workspace.height - node.height;
+            }
+            console.log(workspace, coords.y)   
+            this.props.dragNode(this.currentNode, coords.x, coords.y)            
         }
         if (this.resize.isResizing) {
             this.doResize(e);            

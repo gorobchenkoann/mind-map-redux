@@ -1,10 +1,14 @@
 import React from 'react';
-import { connect } from 'react-redux';
-import { editNodeTitle } from '../../../redux/actions';
+
 import styles from './Header.scss';
 
-export class HeaderContainer extends React.Component {
+export class Header extends React.Component {
+    changeHandler = (id, e) => {
+        this.props.editNodeTitle(id, e.value);
+    }
+
     render() {
+        let {id, title} = this.props;
         return (
             <div
                 data-element='header'
@@ -13,22 +17,11 @@ export class HeaderContainer extends React.Component {
                 <input 
                     className={styles.input}
                     type='text' 
-                    value={this.props.title}
-                    onChange={(e) => this.props.editNodeTitle(id, e.target.value)}
+                    value={title}
+                    onChange={(e) => this.changeHandler(id, e)}
                 ></input>                
                 {this.props.children}
             </div>
         )
     }
 }
-
-const mapDispatchToProps = dispatch => {
-    return {
-        editNodeTitle: (id, title) => dispatch(editNodeTitle(id, title))
-    }
-}
-
-export const Header = connect(
-    null,
-    mapDispatchToProps
-)(HeaderContainer)

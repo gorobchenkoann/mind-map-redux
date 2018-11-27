@@ -35,6 +35,7 @@ export function nodes(state = initialState, action) {
                 
             }
         case 'EDIT_NODE_TITLE':
+        console.log('edit')
             return {
                 ...state,
                 [action.id]: {

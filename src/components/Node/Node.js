@@ -33,7 +33,7 @@ export class Node extends React.Component {
     }
 
     render() {
-        let { id, position, sizes, title, text, children } = this.props;
+        let { id, position, title, children, editNodeTitle } = this.props;
 
         return ( 
             <div  
@@ -51,7 +51,7 @@ export class Node extends React.Component {
             >      
                 <Controllers controllerId={id} mouseOn={this.state.mouseOn}/>
 
-                <Header id={id} title={title} >          
+                <Header id={id} title={title} editNodeTitle={editNodeTitle}>          
                     <Button 
                         onClick={this.btnClickHandler} 
                         showEditor={this.state.showEditor}

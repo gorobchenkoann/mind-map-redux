@@ -51,7 +51,7 @@ class AppCompoment extends React.Component {
         this.resize = {}
     }
 
-    mouseDownHandler = e => {
+    mouseDownHandler = e => {        
         let target = e.target.getAttribute('data-element');
         if (target === 'controller') {
             let from = e.target.getAttribute('id');
@@ -61,7 +61,8 @@ class AppCompoment extends React.Component {
         } else if (target === 'resize') {
             this.startResize(e);
         } 
-        else {
+        else if (e.target.parentElement.getAttribute('data-element') === 'workspace') {
+            e.preventDefault(); // stop selection in Sidebar
             let id = e.target.parentNode.getAttribute('id');
             this.currentNode = id;
         }     
@@ -75,11 +76,13 @@ class AppCompoment extends React.Component {
             }
             let x = coords.x - 140;
             let y = coords.y - 70;
-            this.props.dragNode(this.currentNode, x, y)
+            this.props.dragNode(this.currentNode, x, y)            
         }
         if (this.resize.isResizing) {
             this.doResize(e);            
         }
+
+        e.preventDefault(); // stop selection in Nodes
     }
     mouseUpHandler = e => {
         this.currentNode = null;
@@ -94,7 +97,7 @@ class AppCompoment extends React.Component {
         }
     }    
 
-    doubleClickHandler = e => {
+    doubleClickHandler = e => {        
         let shiftX = e.currentTarget.getBoundingClientRect().left; // 'left' of container
         let coords = {
             x: e.clientX - shiftX,
@@ -126,13 +129,14 @@ class AppCompoment extends React.Component {
                 </Node>
             )            
         )        
-    }
+    }    
 
     render() { 
         return(            
             <div className={styles.container}>             
                 <Sidebar />                  
                 <div 
+                    data-element='workspace'
                     className={styles.workspace}
                     onDoubleClick={this.doubleClickHandler}
                     onMouseDown={this.mouseDownHandler}

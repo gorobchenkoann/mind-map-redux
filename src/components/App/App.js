@@ -51,7 +51,7 @@ class AppCompoment extends React.Component {
         this.resize = {}
     }
 
-    mouseDownHandler = e => {        
+    mouseDownHandler = e => {
         let target = e.target.getAttribute('data-element');
         if (target === 'controller') {
             let from = e.target.getAttribute('id');
@@ -61,8 +61,11 @@ class AppCompoment extends React.Component {
         } else if (target === 'resize') {
             this.startResize(e);
         } 
-        else if (e.target.parentElement.getAttribute('data-element') === 'workspace') {
-            e.preventDefault(); // stop selection in Sidebar
+
+        else {
+            if (e.target.parentNode.getAttribute('data-element') === 'workspace') {
+                  e.preventDefault();
+            }
             let id = e.target.parentNode.getAttribute('id');
             this.currentNode = id;
         }     
@@ -97,7 +100,7 @@ class AppCompoment extends React.Component {
         }
     }    
 
-    doubleClickHandler = e => {        
+    doubleClickHandler = e => { 
         let shiftX = e.currentTarget.getBoundingClientRect().left; // 'left' of container
         let coords = {
             x: e.clientX - shiftX,
@@ -143,7 +146,7 @@ class AppCompoment extends React.Component {
                     onMouseMove={this.mouseMoveHandler}
                     onMouseUp={this.mouseUpHandler}
                 >               
-                   
+                    <div className={styles.dropArea}></div>
                     {this.props.currentMap ? 
                         this.showCurrentMap() 
                         :
@@ -156,6 +159,7 @@ class AppCompoment extends React.Component {
                         {Object.entries(this.props.nodes).map(([id, node]) => (
                             <Node key={id} id={id} {...node}>
                                 <TextEditor 
+                                    data-element='text_editor'
                                     value={node.text} 
                                     onChange={(e) => this.changeHandler(id, e)}
                                 />

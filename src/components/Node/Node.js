@@ -26,22 +26,25 @@ export class Node extends React.Component {
         if (this.state.showEditor) {
             // for adaptive controllers
             e.target.closest('div').parentElement.style.minHeight = 0;
+        } else {
+            e.target.closest('div').parentElement.style.minHeight = `${this.props.sizes.height}px`;
         }
+        
         this.setState({
             showEditor: !this.state.showEditor
         })
     }
 
     render() {
-        let { id, position, title, children, editNode } = this.props;
+        let { id, position, title, sizes, children } = this.props;
 
         return ( 
             <div  
                 id={id}                            
                 className={styles.node}
                 style={{
-                    width: '280px',
-                    minHeight: '160px',
+                    width: sizes.width,
+                    minHeight: sizes.height,
                     top: position.y,
                     left: position.x                                                                            
                 }}        

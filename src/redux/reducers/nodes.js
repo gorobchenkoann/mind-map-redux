@@ -14,8 +14,8 @@ export function nodes(state = initialState, action) {
                 ...state, 
                 [createId()]: {  
                     sizes: {
-                        width: 280,
-                        height: 160
+                        width: NODE_SIZES.width,
+                        height: NODE_SIZES.height
                     },
                     position: {
                         x: action.x - NODE_SIZES.width / 2,

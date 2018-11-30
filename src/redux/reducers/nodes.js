@@ -22,7 +22,8 @@ export function nodes(state = initialState, action) {
                         y: action.y,
                     }, 
                     text: Plain.deserialize(''),  
-                    title: 'Node'   
+                    title: 'Node',
+                    visible: true  
                 }                
             }
         case 'EDIT_NODE_TEXT':
@@ -74,9 +75,19 @@ export function nodes(state = initialState, action) {
             console.log(newState)
             return newState
         case 'CLEAR_WORKSPACE':
-            return initialState  
-        case 'SET_CURRENT_MAP':
-            console.log(state)    
+            let newObj = {};
+            Object.keys(state).map(key => 
+                newObj = {
+                        ...newObj, 
+                        [key]: {
+                            ...state[key],
+                            visible: false
+                        }
+                    }
+                )
+            return newObj
+        case 'CLEAR_ALL':
+            return {}
         default:
             return state
     }

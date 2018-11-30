@@ -11,19 +11,21 @@ class SidebarComponent extends React.Component {
         if (!isObjectEmpty(this.props.nodes)) {
             if (!this.currentMap) {
                 this.currentMap = id;
-                this.props.saveWorkspace(this.currentMap, this.props.nodes, this.props.lines);
-                console.log(this.props.maps)
+
+                let nodes = Object.entries(this.props.nodes)
+                    .filter(([id, node]) => node.visible === true)
+                    .reduce((prev, [id]) => {return [...prev, id]}, [])
+
+                this.props.saveWorkspace(this.currentMap, nodes, this.props.lines);
+
                 let ls = JSON.parse(localStorage.getItem('maps'));                
                 localStorage.setItem('maps', 
                     JSON.stringify({...ls, 
-                        [this.currentMap]: {
-                            nodes: this.props.nodes,
-                            lines: this.props.lines
-                        }
+                        [this.currentMap]: nodes
                     })
                 );
             } else {
-                console.log('current map exists')
+                console.log('current map exists')                
             } 
         } else {
             console.log('tut pusto')

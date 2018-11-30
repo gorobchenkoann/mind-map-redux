@@ -73,7 +73,7 @@ class AppCompoment extends React.Component {
             let workspace = e.currentTarget.childNodes[0]; 
             let workspaceInner = workspace.getBoundingClientRect();
             let coords = {};
-            console.log(this.scale)
+
             let sc = this.scale.value / 100;
             if (this.scale.sign > 0) {
                 coords = {
@@ -86,8 +86,6 @@ class AppCompoment extends React.Component {
                     y: e.clientY / sc - workspaceInner.y / sc - node.height / 2
                 }  
             }
-               
-            console.log(workspaceInner);
             
             // if (coords.x + 280 > workspace.getBoundingClientRect().width) {
             //     workspace.style.width = workspace.getBoundingClientRect().width + 280 + 'px';
@@ -194,7 +192,7 @@ class AppCompoment extends React.Component {
                             )}
                         </svg> 
                         {Object.entries(this.props.nodes).map(([id, node]) => (
-                            <Node key={id} id={id} {...node}/>  
+                            node.visible ? <Node key={id} id={id} {...node}/> : null                            
                         ))}
                         </>
                     }                    

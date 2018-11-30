@@ -1,7 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { Editor } from 'slate-react';
-import { removeNode } from '../../redux/actions';
+import { editNodeText, removeNode } from '../../../redux/actions';
 
 import styles from './TextEditor.scss';
 
@@ -45,8 +45,13 @@ export class TextEditorComponent extends React.Component {
         this.props.dispatch(removeNode(id));
     }
 
+    editorChangeHandler = (e, id) => {
+        this.props.dispatch(editNodeText(id, e.value))
+    }
+    
+
     render() {
-        let { value, onChange } = this.props;
+        let { value, nodeId } = this.props;
         return (
             <>
             <div className={styles.toolbar}>
@@ -61,7 +66,8 @@ export class TextEditorComponent extends React.Component {
                 ref={this.editorRef}
                 className={styles.editor} 
                 value={value}   
-                onChange={onChange}   
+                // onChange={onChange}   
+                onChange={e => this.editorChangeHandler(e, nodeId)}
                 renderMark={this.renderMark}              
             />
             </>

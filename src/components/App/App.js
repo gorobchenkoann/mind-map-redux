@@ -2,8 +2,8 @@ import React from 'react';
 import { connect } from 'react-redux';
 
 import { Value } from 'slate';
-import { Sidebar, Node, Line, TextEditor } from '..';
-import { createNode, dragNode, resizeNode, createLine, editNodeText, editNodeTitle } from '../../redux/actions';
+import { Sidebar, Node, Line } from '..';
+import { createNode, dragNode, resizeNode, createLine } from '../../redux/actions';
 
 import styles from './App.scss';
 
@@ -178,18 +178,11 @@ class AppCompoment extends React.Component {
                             )}
                         </svg> 
                         {Object.entries(this.props.nodes).map(([id, node]) => (
-                            <Node key={id} id={id} {...node}>
-                                <TextEditor 
-                                    data-element='text_editor'
-                                    value={node.text} 
-                                    onChange={(e) => this.changeHandler(id, e)}
-                                />
-                            </Node>
+                            <Node key={id} id={id} {...node} />  
                         ))}
                         </>
                     }                    
                     </div>
-
                 </div>
             </div>
         )
@@ -210,8 +203,7 @@ const mapDispatchToProps = dispatch => {
         createNode: (x, y) => dispatch(createNode(x, y)),
         dragNode: (id, x, y) => dispatch(dragNode(id, x, y)),
         resizeNode: (id, width, height) => dispatch(resizeNode(id, width, height)),
-        createLine: (from, to) => dispatch(createLine(from, to)),
-        editNodeText: (id, text) => dispatch(editNodeText(id, text))
+        createLine: (from, to) => dispatch(createLine(from, to))        
     }
 }  
 

@@ -1,5 +1,5 @@
 import React from 'react';
-import { Controllers, Button, Header } from './';
+import { Controllers, Button, Header, TextEditor } from './';
 
 import styles from './Node.scss';
 import buttonStyles from './Button/Button.scss';
@@ -36,7 +36,7 @@ export class Node extends React.Component {
     }
 
     render() {
-        let { id, position, title, sizes, children } = this.props;
+        let { id, position, title, sizes, text } = this.props;
 
         return ( 
             <div  
@@ -68,7 +68,11 @@ export class Node extends React.Component {
                 
                 {this.state.showEditor && 
                 <>
-                    {children} 
+                    <TextEditor 
+                        data-element='text_editor'
+                        value={text} 
+                        nodeId={id}
+                    />
 
                     <button
                     data-element='resize'

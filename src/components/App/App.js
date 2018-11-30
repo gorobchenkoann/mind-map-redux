@@ -1,7 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
 
-import { Value } from 'slate';
 import { Sidebar, Node, Line } from '..';
 import { createNode, dragNode, resizeNode, createLine } from '../../redux/actions';
 
@@ -19,7 +18,10 @@ class AppCompoment extends React.Component {
         startY: null
     } 
     line = null;
-    scale = 100;
+    scale = {
+        value: 100,
+        sign: 1
+    }
 
     startResize = e => {
         let node = e.target.closest('div').getBoundingClientRect();
@@ -35,7 +37,6 @@ class AppCompoment extends React.Component {
 
     doResize = e => {
         if (this.resize.isResizing) {
-            let node = document.getElementById(this.resize.id);
             let newWidth = this.resize.startW + (e.clientX - this.resize.startX);
             let newHeight = this.resize.startH + (e.clientY - this.resize.startY);
             this.props.resizeNode(this.resize.id, newWidth, newHeight);
@@ -56,29 +57,42 @@ class AppCompoment extends React.Component {
         } else if (target === 'resize') {
             this.startResize(e);
         } 
-
         else {
             if (e.target.parentNode.getAttribute('data-element') === 'workspace') {
                   e.preventDefault();
             }
             let id = e.target.parentNode.getAttribute('id');
-            this.currentNode = id;
+            this.currentNode = id;            
         }     
     }
 
     mouseMoveHandler = e => {
-        if (this.currentNode) {
+        if (this.currentNode) {              
             let nodeElement = document.getElementById(this.currentNode);
             let node = nodeElement.getBoundingClientRect();
-            let workspace = e.currentTarget;    
-            console.log(workspace, e.clientX, workspace.getBoundingClientRect())
-            let coords = {
-                x: e.clientX - workspace.offsetLeft - node.width / 2,
-                y: e.clientY - node.height / 2
-            }      
-            if (coords.x + 280 > workspace.getBoundingClientRect().width) {
-                workspace.style.width = workspace.getBoundingClientRect().width + 280 + 'px';
+            let workspace = e.currentTarget.childNodes[0]; 
+            let workspaceInner = workspace.getBoundingClientRect();
+            let coords = {};
+            console.log(this.scale)
+            let sc = this.scale.value / 100;
+            if (this.scale.sign > 0) {
+                coords = {
+                    x: e.clientX  - workspaceInner.x - node.width / 2,
+                    y: e.clientY - workspaceInner.y - node.height / 2
+                }  
+            } else {
+                coords = {
+                    x: e.clientX / sc - workspaceInner.x / sc - node.width / 2,
+                    y: e.clientY / sc - workspaceInner.y / sc - node.height / 2
+                }  
             }
+               
+            console.log(workspaceInner);
+            
+            // if (coords.x + 280 > workspace.getBoundingClientRect().width) {
+            //     workspace.style.width = workspace.getBoundingClientRect().width + 280 + 'px';
+            // }
+            
             // if (coords.x < 0) {
             //     coords.x = 0;
             // }       
@@ -127,16 +141,23 @@ class AppCompoment extends React.Component {
 
     wheelHandler = e => {  
         let workspace = document.querySelector('[data-element="worklol"');
-        if (this.scale > 70 && this.scale < 130) {
-            e.deltaY > 0 ? this.scale += 5 : this.scale -= 5;
+        let { value, sign} = this.scale;
+        console.log(value, sign)
+        if (value => 70 && value <= 130) {
+            if (e.deltaY > 0 && value !== 130) {
+                value += 5;
+                sign = 1;
+            } else if (e.deltaY < 0 && value !== 70) {
+                value -= 5;
+                sign = -1;
+            }
         } 
-        if (this.scale === 70 && e.deltaY > 0) {
-            this.scale += 5;
+        
+        this.scale = {
+            value: value,
+            sign: sign
         }
-        if (this.scale === 130 && e.deltaY < 0) {
-            this.scale -= 5;
-        }
-        workspace.style.transform = `scale(${this.scale / 100})`;  
+        workspace.style.transform = `scale(${this.scale.value / 100})`;  
     }
 
     showCurrentMap = () => {
@@ -144,17 +165,12 @@ class AppCompoment extends React.Component {
         let currentMap = this.props.maps[id]; 
         return (         
             Object.entries(currentMap['nodes']).map(([id, node]) => 
-                <Node key={id} id={id} {...node} >
-                    <TextEditor 
-                        value={Value.fromJSON(node.text)} 
-                        onChange={(e) => this.props.editNodeText(id, e.value)}
-                    />
-                </Node>
+                <Node key={id} id={id} {...node} />
             )            
         )        
     }    
 
-    render() { 
+    render() {         
         return(            
             <div className={styles.container}>             
                 <Sidebar />                  
@@ -178,7 +194,7 @@ class AppCompoment extends React.Component {
                             )}
                         </svg> 
                         {Object.entries(this.props.nodes).map(([id, node]) => (
-                            <Node key={id} id={id} {...node} />  
+                            <Node key={id} id={id} {...node}/>  
                         ))}
                         </>
                     }                    

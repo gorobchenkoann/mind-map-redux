@@ -22,6 +22,8 @@ export class Node extends React.Component {
         })
     }    
 
+
+
     btnClickHandler = e => {
         if (this.state.showEditor) {
             // for adaptive controllers
@@ -50,7 +52,7 @@ export class Node extends React.Component {
                 }}        
                 onDoubleClick={(e) => {e.stopPropagation()}} 
                 onMouseEnter={this.mouseEnterHandler}
-                onMouseLeave={this.mouseLeaveHandler}        
+                onMouseLeave={this.mouseLeaveHandler}       
             >      
                 <Controllers controllerId={id} mouseOn={this.state.mouseOn}/>
 
@@ -71,7 +73,7 @@ export class Node extends React.Component {
                     <TextEditor 
                         data-element='text_editor'
                         value={text} 
-                        nodeId={id}
+                        nodeId={id}                        
                     />
 
                     <button

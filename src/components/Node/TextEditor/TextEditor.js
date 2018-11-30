@@ -1,6 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { Editor } from 'slate-react';
+import { Value } from 'slate';
 import { editNodeText, removeNode } from '../../../redux/actions';
 
 import styles from './TextEditor.scss';
@@ -65,7 +66,7 @@ export class TextEditorComponent extends React.Component {
             <Editor 
                 ref={this.editorRef}
                 className={styles.editor} 
-                value={value}   
+                value={Value.fromJSON(value)}   
                 // onChange={onChange}   
                 onChange={e => this.editorChangeHandler(e, nodeId)}
                 renderMark={this.renderMark}              

@@ -1,6 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { clearWorkspace, clearAll, saveWorkspace, setCurrentMap } from '../../redux/actions';
+import { clearWorkspace, clearAll, saveWorkspace, setCurrentMap, filterVisible } from '../../redux/actions';
 import { isObjectEmpty } from '../../utils/isObjectEmpty';
 import { createId } from '../../utils/createId';
 import styles from './Sidebar.scss';
@@ -31,7 +31,6 @@ class SidebarComponent extends React.Component {
             console.log('tut pusto')
         }   
     }
-
     
     newHandler = () => {
         this.currentMap = null;
@@ -45,7 +44,10 @@ class SidebarComponent extends React.Component {
     }
 
     setCurrentMapHandler = (id) => {
+        // let id = this.props.currentMap;
+        let currentMapNodes = this.props.maps[id];
         this.props.setCurrentMap(id);
+        this.props.filterVisible(currentMapNodes);
     }
 
     render() {
@@ -88,7 +90,8 @@ const mapDispatchToProps = dispatch => {
         clearWorkspace: () => dispatch(clearWorkspace()),
         clearAll: () => dispatch(clearAll()),
         saveWorkspace: (id, nodes, lines) => dispatch(saveWorkspace(id, nodes, lines)),
-        setCurrentMap: (id) => dispatch(setCurrentMap(id))
+        setCurrentMap: (id) => dispatch(setCurrentMap(id)),
+        filterVisible: (nodes) => dispatch(filterVisible(nodes))
     }
 }  
 

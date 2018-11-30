@@ -159,13 +159,17 @@ class AppCompoment extends React.Component {
     }
 
     showCurrentMap = () => {
-        let id = this.props.currentMap;
-        let currentMap = this.props.maps[id]; 
-        return (         
-            Object.entries(currentMap['nodes']).map(([id, node]) => 
-                <Node key={id} id={id} {...node} />
-            )            
-        )        
+        // let id = this.props.currentMap;
+        // let currentMapNodes = this.props.maps[id]; 
+        console.log('kek')
+        // let visibleNodes = this.props.filterVisible(currentMapNodes);
+
+        // return(<p>kek</p>)
+        // return (         
+        //     Object.entries(currentMap['nodes']).map(([id, node]) => 
+        //         <Node key={id} id={id} {...node} />
+        //     )            
+        // )        
     }    
 
     render() {         
@@ -217,7 +221,7 @@ const mapDispatchToProps = dispatch => {
         createNode: (x, y) => dispatch(createNode(x, y)),
         dragNode: (id, x, y) => dispatch(dragNode(id, x, y)),
         resizeNode: (id, width, height) => dispatch(resizeNode(id, width, height)),
-        createLine: (from, to) => dispatch(createLine(from, to))        
+        createLine: (from, to) => dispatch(createLine(from, to))
     }
 }  
 

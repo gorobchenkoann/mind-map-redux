@@ -8,6 +8,7 @@ const NODE_SIZES = {
 }
 
 export function nodes(state = initialState, action) {
+    let newState = {};
     switch (action.type) {
         case 'CREATE_NODE':
             return {                
@@ -66,7 +67,8 @@ export function nodes(state = initialState, action) {
                 }                
             }
         case 'REMOVE_NODE':
-            let newState = Object.keys(state)
+            newState = {};
+            newState = Object.keys(state)
                 .filter(key => key !== action.id)
                 .reduce((result, current) => {
                     result[current] = state[current]; 
@@ -75,17 +77,30 @@ export function nodes(state = initialState, action) {
             console.log(newState)
             return newState
         case 'CLEAR_WORKSPACE':
-            let newObj = {};
+            newState = {};
             Object.keys(state).map(key => 
-                newObj = {
-                        ...newObj, 
+                newState = {
+                        ...newState, 
                         [key]: {
                             ...state[key],
                             visible: false
                         }
                     }
                 )
-            return newObj
+            return newState
+        case 'FILTER_NODES':
+            newState = {};
+            action.nodes.map(id => {
+                return newState = {
+                    ...state, 
+                    [id]: {
+                        ...state[id],
+                        visible: true
+                    }
+                }
+            })
+            console.log(state, newState)
+            return newState
         case 'CLEAR_ALL':
             return {}
         default:

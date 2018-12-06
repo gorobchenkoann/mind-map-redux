@@ -158,20 +158,6 @@ class AppCompoment extends React.Component {
         workspace.style.transform = `scale(${this.scale.value / 100})`;  
     }
 
-    showCurrentMap = () => {
-        // let id = this.props.currentMap;
-        // let currentMapNodes = this.props.maps[id]; 
-        console.log('kek')
-        // let visibleNodes = this.props.filterVisible(currentMapNodes);
-
-        // return(<p>kek</p>)
-        // return (         
-        //     Object.entries(currentMap['nodes']).map(([id, node]) => 
-        //         <Node key={id} id={id} {...node} />
-        //     )            
-        // )        
-    }    
-
     render() {         
         return(            
             <div className={styles.container}>             
@@ -186,20 +172,16 @@ class AppCompoment extends React.Component {
                     onWheel={this.wheelHandler}                    
                 >               
                 <div data-element='map'>
-                    {this.props.currentMap ? 
-                        this.showCurrentMap() 
-                        :
-                        <>
-                        <svg className={styles.svg}>
-                            {Object.entries(this.props.lines).map(([id, line]) => 
-                                <Line from={line.from} to={line.to} id={id} key={id}/>                    
-                            )}
-                        </svg> 
-                        {Object.entries(this.props.nodes).map(([id, node]) => (
-                            node.visible ? <Node key={id} id={id} {...node}/> : null                            
-                        ))}
-                        </>
-                    }                    
+
+                    <svg className={styles.svg}>
+                        {Object.entries(this.props.lines).map(([id, line]) => 
+                            <Line from={line.from} to={line.to} id={id} key={id}/>                    
+                        )}
+                    </svg> 
+                    {Object.entries(this.props.nodes).map(([id, node]) => (
+                        node.visible ? <Node key={id} id={id} {...node}/> : null                            
+                    ))}
+
                     </div>
                 </div>
             </div>

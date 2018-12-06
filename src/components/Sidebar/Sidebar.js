@@ -44,9 +44,8 @@ class SidebarComponent extends React.Component {
     }
 
     setCurrentMapHandler = (id) => {
-        // let id = this.props.currentMap;
         let currentMapNodes = this.props.maps[id];
-        this.props.setCurrentMap(id);
+        this.props.clearWorkspace();
         this.props.filterVisible(currentMapNodes);
     }
 

@@ -77,29 +77,12 @@ export function nodes(state = initialState, action) {
             console.log(newState)
             return newState
         case 'CLEAR_WORKSPACE':
-            newState = {};
-            Object.keys(state).map(key => 
-                newState = {
-                        ...newState, 
-                        [key]: {
-                            ...state[key],
-                            visible: false
-                        }
-                    }
-                )
+            newState = Object.assign({}, state); 
+            Object.keys(newState).map(id => newState[id].visible = false);
             return newState
         case 'FILTER_NODES':
-            newState = {};
-            action.nodes.map(id => {
-                return newState = {
-                    ...state, 
-                    [id]: {
-                        ...state[id],
-                        visible: true
-                    }
-                }
-            })
-            console.log(state, newState)
+            newState = Object.assign({}, state);         
+            action.nodes.map(id => newState[id].visible = true)
             return newState
         case 'CLEAR_ALL':
             return {}

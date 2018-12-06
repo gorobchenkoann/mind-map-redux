@@ -138,14 +138,14 @@ class AppCompoment extends React.Component {
     }
 
     wheelHandler = e => {  
-        let workspace = document.querySelector('[data-element="worklol"');
+        let workspace = document.querySelector('[data-element="map"');
         let { value, sign} = this.scale;
-        console.log(value, sign)
+
         if (value => 70 && value <= 130) {
-            if (e.deltaY > 0 && value !== 130) {
+            if (e.deltaY < 0 && value !== 130) {
                 value += 5;
                 sign = 1;
-            } else if (e.deltaY < 0 && value !== 70) {
+            } else if (e.deltaY > 0 && value !== 70) {
                 value -= 5;
                 sign = -1;
             }
@@ -185,7 +185,7 @@ class AppCompoment extends React.Component {
                     onMouseUp={this.mouseUpHandler}
                     onWheel={this.wheelHandler}                    
                 >               
-                <div data-element='worklol'>
+                <div data-element='map'>
                     {this.props.currentMap ? 
                         this.showCurrentMap() 
                         :

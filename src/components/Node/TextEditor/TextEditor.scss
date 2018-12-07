@@ -27,10 +27,17 @@
 
 .toolbar a,
 .toolbar button {
+    display: flex;
+    align-items: center;
     width: 20px;
     height: 20px;
     padding: 0;
     outline: none;
+
+    svg {
+        width: 80%;
+        height: auto;
+    }
 
     &:focus {        
         color: #ff6f61;

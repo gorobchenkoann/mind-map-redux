@@ -2,6 +2,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { Editor } from 'slate-react';
 import { Value } from 'slate';
+import { MdFormatListBulleted, MdFormatListNumbered } from 'react-icons/md';
 import { editNodeText, removeNode } from '../../../redux/actions';
 
 import styles from './TextEditor.scss';
@@ -39,6 +40,24 @@ export class TextEditorComponent extends React.Component {
         this.editorRef.toggleMark('strike');
     }   
 
+    setListBlock = () => {
+        let isList = this.editorRef.value.blocks.some(block => block.type === 'list_item');
+        if (isList) {
+            this.editorRef.setBlocks('paragraph');
+        } else {
+            this.editorRef.setBlocks('list_item');
+        }        
+    }
+
+    setOrderedListBlock = () => {
+        let isList = this.editorRef.value.blocks.some(block => block.type === 'ordered_list_item');
+        if (isList) {
+            this.editorRef.setBlocks('paragraph');
+        } else {
+            this.editorRef.setBlocks('ordered_list_item');
+        }        
+    }
+
     removeNode = e => {
         let id = e.target.parentNode.parentNode.getAttribute('id');
         this.props.dispatch(removeNode(id));
@@ -48,6 +67,7 @@ export class TextEditorComponent extends React.Component {
         this.props.dispatch(editNodeText(id, e.value))
     }
     
+    // TODO: fix numbers in ordered list
 
     render() {
         let { value, nodeId } = this.props;
@@ -59,6 +79,9 @@ export class TextEditorComponent extends React.Component {
                 <button onClick={this.setUnderlineMark}><u>U</u></button>
                 <button onClick={this.setStrikeMark}><s>S</s></button>
 
+                <button onClick={this.setListBlock}><MdFormatListBulleted /></button>
+                <button onClick={this.setOrderedListBlock}><MdFormatListNumbered /></button>
+
                 <a tabIndex='0' onClick={this.removeNode} title='Delete node'>x</a>
             </div>
             <Editor 
@@ -67,7 +90,8 @@ export class TextEditorComponent extends React.Component {
                 value={Value.fromJSON(value)}   
                 // onChange={onChange}   
                 onChange={e => this.editorChangeHandler(e, nodeId)}
-                renderMark={this.renderMark}              
+                renderMark={this.renderMark} 
+                renderNode={this.renderNode}             
             />
             </>
         )
@@ -87,6 +111,18 @@ export class TextEditorComponent extends React.Component {
                 return next();
         }
     }
+
+    renderNode = (props, editor, next) => {
+        switch (props.node.type) {
+            case 'list_item':
+                return <ul {...props.attributes}><li>{props.children}</li></ul>
+            case 'ordered_list_item':
+                return <ol {...props.attributes}><li>{props.children}</li></ol>
+            default:
+                return next()
+        }
+    }
+    
 }
 
 export const TextEditor = connect()(TextEditorComponent)

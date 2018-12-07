@@ -103,14 +103,13 @@ class AppCompoment extends React.Component {
             // if (coords.y + node.height > workspace.height) {
             //     coords.y = workspace.height - node.height;
             // }   
-            this.props.dragNode(this.currentNode, coords.x, coords.y)            
+            this.props.dragNode(this.currentNode, coords.x, coords.y);       
         }
         if (this.resize.isResizing) {
             this.doResize(e);            
         }
-
-        e.preventDefault(); // stop selection in Nodes
     }
+    
     mouseUpHandler = e => {
         this.currentNode = null;
         if (this.resize.isResizing) {

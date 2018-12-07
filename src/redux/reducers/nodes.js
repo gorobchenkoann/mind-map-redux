@@ -28,6 +28,7 @@ export function nodes(state = initialState, action) {
                 }                
             }
         case 'EDIT_NODE_TEXT':
+        console.log('edit-node-text')
             return {
                 ...state,
                 [action.id]: {
@@ -74,7 +75,6 @@ export function nodes(state = initialState, action) {
                     result[current] = state[current]; 
                     return result
                 }, {});
-            console.log(newState)
             return newState
         case 'CLEAR_WORKSPACE':
             newState = Object.assign({}, state); 

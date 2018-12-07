@@ -65,13 +65,13 @@ class AppCompoment extends React.Component {
         } else if (target === 'resize') {
             this.startResize(e);
         } 
-        else {
-            if (e.target.parentNode.getAttribute('data-element') === 'workspace') {
-                  e.preventDefault();
-            }
+        else if (target === 'header') {            
             let id = e.target.parentNode.getAttribute('id');
-            this.currentNode = id;            
-        }     
+            this.currentNode = id;           
+        }
+        if (e.target.parentNode.getAttribute('data-element') === 'workspace') {
+            e.preventDefault();
+      }     
     }
 
     mouseMoveHandler = e => {

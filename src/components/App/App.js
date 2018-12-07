@@ -18,11 +18,14 @@ class AppCompoment extends React.Component {
         startY: null
     } 
     line = null;
+    scale = {
+        value: 100,
+        sign: 1
+    }
     state = {
         scale: {
-            value: 100,
-            sign: 1
-        }
+            value: this.scale.value
+        }        
     }
 
     startResize = e => {
@@ -76,8 +79,8 @@ class AppCompoment extends React.Component {
             let workspaceInner = workspace.getBoundingClientRect();
             let coords = {};
 
-            let sc = this.state.scale.value / 100;
-            if (this.state.scale.sign > 0) {
+            let sc = this.scale.value / 100;
+            if (this.scale.sign > 0) {
                 coords = {
                     x: e.clientX  - workspaceInner.x - node.width / 2,
                     y: e.clientY - workspaceInner.y - node.height / 2
@@ -141,27 +144,53 @@ class AppCompoment extends React.Component {
         this.props.editNodeText(id, e.value);
     }
 
-    wheelHandler = e => {  
+    zoom = (arg) => {
         let workspace = document.querySelector('[data-element="map"');
-        let { value, sign} = this.state.scale;
+        let { value, sign } = this.scale;
+
+        if (arg === 'in') {
+            value += 5;
+            sign = 1;
+        } else if (arg === 'out') {
+            value -= 5;
+            sign = -1;
+        }   
+
+        this.scale = {
+            value: value,
+            sign: sign
+        }
+        this.setState({
+            scale: {
+                value: value
+            }
+        })
+
+        workspace.style.transform = `scale(${this.scale.value / 100})`;
+    }
+
+    wheelHandler = e => {          
+        let { value } = this.scale;
 
         if (value => 70 && value <= 130) {
             if (e.deltaY < 0 && value !== 130) {
-                value += 5;
-                sign = 1;
+                this.zoom('in');
+                
             } else if (e.deltaY > 0 && value !== 70) {
-                value -= 5;
-                sign = -1;
+                this.zoom('out');               
             }
-        } 
-        
-        this.setState({
-            scale: {
-                value: value,
-                sign: sign
+        }          
+    }
+
+    zoomClickHandler = (arg) => {
+        let { value } = this.scale;
+        if (value => 70 && value <= 130) {
+            if (arg === 'in' && value !== 130) {
+                this.zoom('in');
+            } else if (arg === 'out' && value !== 70) {
+                this.zoom('out'); 
             }
-        });
-        workspace.style.transform = `scale(${this.state.scale.value / 100})`;  
+        }
     }
 
     render() {         
@@ -170,8 +199,8 @@ class AppCompoment extends React.Component {
                 <Sidebar /> 
                 <div className={styles.scalePanel}>
                     <span>{this.state.scale.value}%</span>
-                    <button>+</button>
-                    <button>-</button>
+                    <button onClick={() => this.zoomClickHandler('in')}>+</button>
+                    <button onClick={() => this.zoomClickHandler('out')}>-</button>
                 </div>    
                                  
                 <div 

@@ -23,22 +23,20 @@ function StrikeMark(props) {
 }
 
 export class TextEditorComponent extends React.Component {
-    editorRef = React.createRef();
-
     setBoldMark = () => {
-        this.editorRef.current.toggleMark('bold');
+        this.editorRef.toggleMark('bold');
     }
 
     setItalicMark = () => {
-        this.editorRef.current.toggleMark('italic');
+        this.editorRef.toggleMark('italic');
     }
 
     setUnderlineMark = () => {
-        this.editorRef.current.toggleMark('underline');
+        this.editorRef.toggleMark('underline');
     }
 
     setStrikeMark = () => {
-        this.editorRef.current.toggleMark('strike');
+        this.editorRef.toggleMark('strike');
     }   
 
     removeNode = e => {
@@ -64,7 +62,7 @@ export class TextEditorComponent extends React.Component {
                 <a onClick={this.removeNode} title='Delete node'>x</a>
             </div>
             <Editor 
-                ref={this.editorRef}
+                ref={(el) => {this.editorRef = el}}
                 className={styles.editor} 
                 value={Value.fromJSON(value)}   
                 // onChange={onChange}   

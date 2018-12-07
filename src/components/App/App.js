@@ -18,9 +18,11 @@ class AppCompoment extends React.Component {
         startY: null
     } 
     line = null;
-    scale = {
-        value: 100,
-        sign: 1
+    state = {
+        scale: {
+            value: 100,
+            sign: 1
+        }
     }
 
     startResize = e => {
@@ -74,8 +76,8 @@ class AppCompoment extends React.Component {
             let workspaceInner = workspace.getBoundingClientRect();
             let coords = {};
 
-            let sc = this.scale.value / 100;
-            if (this.scale.sign > 0) {
+            let sc = this.state.scale.value / 100;
+            if (this.state.scale.sign > 0) {
                 coords = {
                     x: e.clientX  - workspaceInner.x - node.width / 2,
                     y: e.clientY - workspaceInner.y - node.height / 2
@@ -141,7 +143,7 @@ class AppCompoment extends React.Component {
 
     wheelHandler = e => {  
         let workspace = document.querySelector('[data-element="map"');
-        let { value, sign} = this.scale;
+        let { value, sign} = this.state.scale;
 
         if (value => 70 && value <= 130) {
             if (e.deltaY < 0 && value !== 130) {
@@ -153,11 +155,13 @@ class AppCompoment extends React.Component {
             }
         } 
         
-        this.scale = {
-            value: value,
-            sign: sign
-        }
-        workspace.style.transform = `scale(${this.scale.value / 100})`;  
+        this.setState({
+            scale: {
+                value: value,
+                sign: sign
+            }
+        });
+        workspace.style.transform = `scale(${this.state.scale.value / 100})`;  
     }
 
     render() {         
@@ -172,7 +176,8 @@ class AppCompoment extends React.Component {
                     onMouseMove={this.mouseMoveHandler}
                     onMouseUp={this.mouseUpHandler}
                     onWheel={this.wheelHandler}                    
-                >               
+                >       
+                <p className={styles.scale}>{this.state.scale.value}%</p>        
                 <div 
                     data-element='map' 
                     className={styles.map}

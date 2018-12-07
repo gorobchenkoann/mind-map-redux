@@ -167,7 +167,13 @@ class AppCompoment extends React.Component {
     render() {         
         return(            
             <div className={styles.container}>             
-                <Sidebar />                  
+                <Sidebar /> 
+                <div className={styles.scalePanel}>
+                    <span>{this.state.scale.value}%</span>
+                    <button>+</button>
+                    <button>-</button>
+                </div>    
+                                 
                 <div 
                     data-element='workspace'
                     className={styles.workspace}
@@ -176,12 +182,7 @@ class AppCompoment extends React.Component {
                     onMouseMove={this.mouseMoveHandler}
                     onMouseUp={this.mouseUpHandler}
                     onWheel={this.wheelHandler}                    
-                >   
-                <div className={styles.scalePanel}>
-                    <span>{this.state.scale.value}%</span>
-                    <button>+</button>
-                    <button>-</button>
-                </div>    
+                >                  
     
                 <div 
                     data-element='map' 

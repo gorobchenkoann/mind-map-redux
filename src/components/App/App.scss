@@ -1,18 +1,18 @@
 .container {
+    position: relative;
     display: flex;
     flex-wrap: nowrap;
     min-width: 100vw;
     min-height: 100vh;
     overflow: hidden;
-    background-color: #f2eef5;
+    background-color: #f2eef5;    
 }
 
 .workspace {
+    position: relative;
     flex-shrink: 0;
-    position: relative;  
     flex-grow: 1;
     min-height: 100vh;  
-    z-index: 10;      
     box-sizing: border-box;
 }
 
@@ -41,12 +41,6 @@
     border-top-left-radius: 10px;
 }
 
-h3 {
-    position: absolute;
-    top: 0;
-    right: 0;
-}
-
 .scalePanel {
     position: absolute;
     top: 20px;
@@ -61,7 +55,6 @@ h3 {
         border: none;
         background: #d4d4d4;        
         margin-bottom: 2px;
-        z-index: 20;
         cursor: pointer;
         outline-color: #ff6f61;
     }

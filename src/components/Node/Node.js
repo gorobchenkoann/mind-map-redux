@@ -62,8 +62,8 @@ export class Node extends React.Component {
                         showEditor={this.state.showEditor}
                     >
                     {this.state.showEditor ? 
-                        <span className={styles.span}>-</span> :
-                        <span className={styles.span}>+</span>
+                        <span tabIndex='0' className={styles.span}>-</span> :
+                        <span tabIndex='0' className={styles.span}>+</span>
                     }
                     </Button>
                 </Header>                

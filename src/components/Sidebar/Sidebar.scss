@@ -21,7 +21,8 @@ $side_bar_width_max: 120px;
     margin-right: auto;
     border: none;
     background: #d4d4d4;
-    cursor: pointer;    
+    cursor: pointer;   
+    outline-color: #ff6f61; 
 
     &:first-child {
         margin-top: 0;

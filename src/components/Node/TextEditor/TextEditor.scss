@@ -18,6 +18,11 @@
     width: 20px;
     height: 20px;
     padding: 0;
+    outline: none;
+
+    &:focus {        
+        color: #ff6f61;
+    }
 }
 
 
@@ -25,8 +30,7 @@
     margin-right: 5px;
     background: transparent;
     border: none;    
-    outline: none; 
-    cursor: pointer;   
+    cursor: pointer;  
 }
 
 .toolbar a {

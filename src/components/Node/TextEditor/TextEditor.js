@@ -59,7 +59,7 @@ export class TextEditorComponent extends React.Component {
                 <button onClick={this.setUnderlineMark}><u>U</u></button>
                 <button onClick={this.setStrikeMark}><s>S</s></button>
 
-                <a onClick={this.removeNode} title='Delete node'>x</a>
+                <a tabIndex='0' onClick={this.removeNode} title='Delete node'>x</a>
             </div>
             <Editor 
                 ref={(el) => {this.editorRef = el}}

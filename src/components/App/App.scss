@@ -47,10 +47,29 @@ h3 {
     right: 0;
 }
 
-.scale {
+.scalePanel {
     position: absolute;
-    margin: 0;
-    padding: 0;    
-    top: 10px;
+    top: 20px;
     right: 10px;
+    width: 30px;
+    height: 80px;
+    display: flex;
+    flex-direction: column;
+
+    button {
+        flex: 1;
+        border: none;
+        background: #d4d4d4;        
+        margin-bottom: 2px;
+        z-index: 20;
+        cursor: pointer;
+        outline-color: #ff6f61;
+    }
+
+    span {
+        margin-bottom: 5px;
+        font-size: 14px;
+        text-align: center;
+    }
+
 }

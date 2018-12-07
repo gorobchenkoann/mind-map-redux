@@ -176,8 +176,13 @@ class AppCompoment extends React.Component {
                     onMouseMove={this.mouseMoveHandler}
                     onMouseUp={this.mouseUpHandler}
                     onWheel={this.wheelHandler}                    
-                >       
-                <p className={styles.scale}>{this.state.scale.value}%</p>        
+                >   
+                <div className={styles.scalePanel}>
+                    <span>{this.state.scale.value}%</span>
+                    <button>+</button>
+                    <button>-</button>
+                </div>    
+    
                 <div 
                     data-element='map' 
                     className={styles.map}

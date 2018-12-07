@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 import { clearWorkspace, clearAll, saveWorkspace, editWorkspace, setCurrentMap, filterVisible } from '../../redux/actions';
 import { isObjectEmpty } from '../../utils/isObjectEmpty';
 import { createId } from '../../utils/createId';
+import { MdNoteAdd, MdDeleteForever, MdSave } from 'react-icons/md';
 import styles from './Sidebar.scss';
 
 class SidebarComponent extends React.Component {   
@@ -52,22 +53,27 @@ class SidebarComponent extends React.Component {
     render() {
         return (
             <div className={styles.sidebar}>
-                <button
-                    className={styles.button}
-                    onClick={this.newHandler}
-                >New</button>
-                <button                        
-                    className={styles.button}
-                    onClick={this.saveHandler}
-                >Save</button>
-                <button                         
-                    onClick={this.clearHandler}
-                    data-element='clear' 
-                    className={styles.button}
-                >Delete all</button>
+                <div className={styles.buttonWrap}>
+                    <button
+                        className={styles.button}
+                        onClick={this.newHandler}
+                        title='New workspace'
+                    ><MdNoteAdd /></button>
+                    <button                        
+                        className={styles.button}
+                        onClick={this.saveHandler}
+                        title='Save map'
+                    ><MdSave /></button>
+                    <button                         
+                        onClick={this.clearHandler}
+                        data-element='clear' 
+                        className={styles.button}
+                        title='Delete ALL'
+                    ><MdDeleteForever /></button>
+                </div>
                 
                 {Object.entries(this.props.maps).map(([id, item], index) => 
-                    <button key={index} className={styles.button} onClick={() =>{this.setCurrentMapHandler(id)}}>{id}</button>
+                    <button key={index} className={styles.item} onClick={() =>{this.setCurrentMapHandler(id)}}>{id}</button>
                 )}
 
             </div>

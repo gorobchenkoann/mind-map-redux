@@ -62,7 +62,7 @@ export class Line extends React.Component {
         }
 
         return(
-            <path key={key} stroke='#896899' strokeWidth={2} fill='transparent'
+            <path key={key} stroke='#ff6f61' strokeWidth={2} fill='transparent'
                 d={d}
             >
             </path>

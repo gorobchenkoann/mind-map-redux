@@ -172,17 +172,21 @@ class AppCompoment extends React.Component {
         workspace.style.transform = `scale(${this.scale.value / 100})`;
     }
 
-    wheelHandler = e => {          
-        let { value } = this.scale;
+    wheelHandler = e => {  
+        let isWorkspace = e.target.getAttribute('data-element') === 'workspace';
+        let isParentMap = e.target.parentNode.getAttribute('data-element') === 'map'; // for SVG element
+        if (isWorkspace || isParentMap) {
+            let { value } = this.scale;
 
-        if (value => 70 && value <= 130) {
-            if (e.deltaY < 0 && value !== 130) {
-                this.zoom('in');
-                
-            } else if (e.deltaY > 0 && value !== 70) {
-                this.zoom('out');               
-            }
-        }          
+            if (value => 70 && value <= 130) {
+                if (e.deltaY < 0 && value !== 130) {
+                    this.zoom('in');
+                    
+                } else if (e.deltaY > 0 && value !== 70) {
+                    this.zoom('out');               
+                }
+            }      
+        }            
     }
 
     zoomClickHandler = (arg) => {

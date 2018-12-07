@@ -18,12 +18,20 @@ class SidebarComponent extends React.Component {
 
                 this.props.saveWorkspace(this.currentMap, nodes, this.props.lines);
 
-                let ls = JSON.parse(localStorage.getItem('maps'));                
+                let lsMaps = JSON.parse(localStorage.getItem('maps'));                
                 localStorage.setItem('maps', 
-                    JSON.stringify({...ls, 
+                    JSON.stringify({...lsMaps, 
                         [this.currentMap]: nodes
                     })
                 );
+                
+                let lsNodes = JSON.parse(localStorage.getItem('nodes'));  
+                let unvisibleNodes = Object.assign({}, this.props.nodes); 
+                Object.keys(this.props.nodes).map(id => unvisibleNodes[id].visible = false)             
+                localStorage.setItem('nodes', 
+                    JSON.stringify({...lsNodes, ...unvisibleNodes})
+                );
+
             } else {
                 console.log('current map exists')                
             } 

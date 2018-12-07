@@ -47,6 +47,13 @@ export const saveWorkspace = (id, nodes, lines) => ({
     lines
 })
 
+export const editWorkspace = (id, nodes, lines) => ({
+    type: 'EDIT_WORKSPACE',
+    id,
+    nodes,
+    lines
+})
+
 export const clearAll = () => ({
     type: 'CLEAR_ALL'
 })

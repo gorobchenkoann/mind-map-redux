@@ -1,43 +1,34 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { clearWorkspace, clearAll, saveWorkspace, setCurrentMap, filterVisible } from '../../redux/actions';
+import { clearWorkspace, clearAll, saveWorkspace, editWorkspace, setCurrentMap, filterVisible } from '../../redux/actions';
 import { isObjectEmpty } from '../../utils/isObjectEmpty';
 import { createId } from '../../utils/createId';
 import styles from './Sidebar.scss';
 
-class SidebarComponent extends React.Component {
+class SidebarComponent extends React.Component {   
     saveHandler = () => {           
         let id = createId();  
+        // if there's something to save
         if (!isObjectEmpty(this.props.nodes)) {
             if (!this.currentMap) {
-                this.currentMap = id;
+                this.currentMap = id;  
+            } 
 
-                let nodes = Object.entries(this.props.nodes)
-                    .filter(([id, node]) => node.visible === true)
-                    .reduce((prev, [id]) => {return [...prev, id]}, [])
-
-                this.props.saveWorkspace(this.currentMap, nodes, this.props.lines);
-
-                let lsMaps = JSON.parse(localStorage.getItem('maps'));                
+            let nodes = Object.entries(this.props.nodes)
+                .filter(([id, node]) => node.visible === true)
+                .reduce((prev, [id]) => {return [...prev, id]}, [])
+            let lsMaps = JSON.parse(localStorage.getItem('maps'));                
                 localStorage.setItem('maps', 
                     JSON.stringify({...lsMaps, 
                         [this.currentMap]: nodes
-                    })
-                );
-                
-                let lsNodes = JSON.parse(localStorage.getItem('nodes'));  
-                let unvisibleNodes = Object.assign({}, this.props.nodes); 
-                Object.keys(this.props.nodes).map(id => unvisibleNodes[id].visible = false)             
+                    }));                
+            let lsNodes = JSON.parse(localStorage.getItem('nodes'));           
                 localStorage.setItem('nodes', 
-                    JSON.stringify({...lsNodes, ...unvisibleNodes})
-                );
+                    JSON.stringify({...lsNodes, ...this.props.nodes})
+                );                         
 
-            } else {
-                console.log('current map exists')                
-            } 
-        } else {
-            console.log('tut pusto')
-        }   
+            this.props.saveWorkspace(this.currentMap, nodes, this.props.lines);            
+        } 
     }
     
     newHandler = () => {
@@ -52,6 +43,7 @@ class SidebarComponent extends React.Component {
     }
 
     setCurrentMapHandler = (id) => {
+        this.currentMap = id;
         let currentMapNodes = this.props.maps[id];
         this.props.clearWorkspace();
         this.props.filterVisible(currentMapNodes);
@@ -97,6 +89,7 @@ const mapDispatchToProps = dispatch => {
         clearWorkspace: () => dispatch(clearWorkspace()),
         clearAll: () => dispatch(clearAll()),
         saveWorkspace: (id, nodes, lines) => dispatch(saveWorkspace(id, nodes, lines)),
+        editWorkspace: (id, nodes, lines) => dispatch(editWorkspace(id, nodes, lines)),
         setCurrentMap: (id) => dispatch(setCurrentMap(id)),
         filterVisible: (nodes) => dispatch(filterVisible(nodes))
     }

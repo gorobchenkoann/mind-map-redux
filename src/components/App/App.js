@@ -2,11 +2,11 @@ import React from 'react';
 import { connect } from 'react-redux';
 
 import { Sidebar, Node, Line } from '..';
-import { createNode, dragNode, resizeNode, createLine } from '../../redux/actions';
+import { createNode, dragNode, resizeNode, createLine, clearWorkspace } from '../../redux/actions';
 
 import styles from './App.scss';
 
-class AppCompoment extends React.Component { 
+class AppCompoment extends React.Component {    
     currentNode = null;
     currentMap = null;
     resize = {
@@ -26,6 +26,9 @@ class AppCompoment extends React.Component {
         scale: {
             value: this.scale.value
         }        
+    }
+    componentDidMount() {
+        this.props.clearWorkspace();
     }
 
     startResize = e => {
@@ -245,6 +248,7 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = dispatch => {
     return {
+        clearWorkspace: () => dispatch(clearWorkspace()),
         createNode: (x, y) => dispatch(createNode(x, y)),
         dragNode: (id, x, y) => dispatch(dragNode(id, x, y)),
         resizeNode: (id, width, height) => dispatch(resizeNode(id, width, height)),

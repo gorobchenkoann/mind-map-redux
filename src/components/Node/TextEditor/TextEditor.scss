@@ -7,9 +7,22 @@
 
 .editor {
     flex-grow: 1;
+    max-height: 300px;
     padding: 10px;
     background-color: #ffffff;
     outline: none;
+    overflow-y: scroll;
+
+    &::-webkit-scrollbar {
+        width: 3px;
+    }
+    &::-webkit-scrollbar-track {
+        background-color: #dadada;
+    }
+    &::-webkit-scrollbar-thumb {
+        background-color: #bebebe;
+        border-radius: 5px;
+    }
 }
 
 .toolbar a,

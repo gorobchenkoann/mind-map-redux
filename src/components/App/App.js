@@ -173,7 +173,10 @@ class AppCompoment extends React.Component {
                     onMouseUp={this.mouseUpHandler}
                     onWheel={this.wheelHandler}                    
                 >               
-                <div data-element='map'>
+                <div 
+                    data-element='map' 
+                    className={styles.map}
+                >
 
                     <svg className={styles.svg}>
                         {Object.entries(this.props.lines).map(([id, line]) => 

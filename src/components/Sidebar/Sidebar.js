@@ -57,7 +57,7 @@ class SidebarComponent extends React.Component {
                     <button
                         className={styles.button}
                         onClick={this.newHandler}
-                        title='New workspace'
+                        title='New map'
                     ><MdNoteAdd /></button>
                     <button                        
                         className={styles.button}
@@ -68,7 +68,7 @@ class SidebarComponent extends React.Component {
                         onClick={this.clearHandler}
                         data-element='clear' 
                         className={styles.button}
-                        title='Delete ALL'
+                        title='Delete ALL maps'
                     ><MdDeleteForever /></button>
                 </div>
                 

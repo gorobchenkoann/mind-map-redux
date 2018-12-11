@@ -7,7 +7,7 @@ import { MdNoteAdd, MdDeleteForever, MdSave } from 'react-icons/md';
 import styles from './Sidebar.scss';
 
 class SidebarComponent extends React.Component {   
-    saveHandler = () => {           
+    saveMap = () => {           
         let id = createId();  
         // if there's something to save
         if (!isObjectEmpty(this.props.nodes)) {
@@ -18,26 +18,37 @@ class SidebarComponent extends React.Component {
             let nodes = Object.entries(this.props.nodes)
                 .filter(([id, node]) => node.visible === true)
                 .reduce((prev, [id]) => {return [...prev, id]}, [])
+            let lines = Object.entries(this.props.lines)
+                .filter(([id, line]) => line.visible === true)
+                .reduce((prev, [id]) => {return [...prev, id]}, [])
+            this.props.saveWorkspace(this.currentMap, nodes, lines); 
+
             let lsMaps = JSON.parse(localStorage.getItem('maps'));                
                 localStorage.setItem('maps', 
                     JSON.stringify({...lsMaps, 
-                        [this.currentMap]: nodes
+                        [this.currentMap]: {
+                            nodes: nodes,
+                            lines: lines
+                        }
                     }));                
             let lsNodes = JSON.parse(localStorage.getItem('nodes'));           
                 localStorage.setItem('nodes', 
                     JSON.stringify({...lsNodes, ...this.props.nodes})
-                );                         
-
-            this.props.saveWorkspace(this.currentMap, nodes, this.props.lines);            
+                );    
+            let lsLines = JSON.parse(localStorage.getItem('lines'));
+                localStorage.setItem('lines',
+                    JSON.stringify({...lsLines, ...this.props.lines})
+                );  
+                       
         } 
     }
     
-    newHandler = () => {
+    createNewMap = () => {
         this.currentMap = null;
         this.props.clearWorkspace();        
     }
 
-    clearHandler = () => {        
+    removeAllMaps = () => {        
         this.currentMap = null;
         this.props.clearAll();
         localStorage.clear();
@@ -45,9 +56,11 @@ class SidebarComponent extends React.Component {
 
     setCurrentMapHandler = (id) => {
         this.currentMap = id;
-        let currentMapNodes = this.props.maps[id];
+        let currentMapNodes = this.props.maps[id].nodes;
+        let currentMapLines = this.props.maps[id].lines;
         this.props.clearWorkspace();
-        this.props.filterVisible(currentMapNodes);
+        this.props.filterVisible('nodes', currentMapNodes);
+        this.props.filterVisible('lines', currentMapLines);
     }
 
     render() {
@@ -56,16 +69,16 @@ class SidebarComponent extends React.Component {
                 <div className={styles.buttonWrap}>
                     <button
                         className={styles.button}
-                        onClick={this.newHandler}
+                        onClick={this.createNewMap}
                         title='New map'
                     ><MdNoteAdd /></button>
                     <button                        
                         className={styles.button}
-                        onClick={this.saveHandler}
+                        onClick={this.saveMap}
                         title='Save map'
                     ><MdSave /></button>
                     <button                         
-                        onClick={this.clearHandler}
+                        onClick={this.removeAllMaps}
                         data-element='clear' 
                         className={styles.button}
                         title='Delete ALL maps'
@@ -97,7 +110,7 @@ const mapDispatchToProps = dispatch => {
         saveWorkspace: (id, nodes, lines) => dispatch(saveWorkspace(id, nodes, lines)),
         editWorkspace: (id, nodes, lines) => dispatch(editWorkspace(id, nodes, lines)),
         setCurrentMap: (id) => dispatch(setCurrentMap(id)),
-        filterVisible: (nodes) => dispatch(filterVisible(nodes))
+        filterVisible: (itemType, items) => dispatch(filterVisible(itemType, items))
     }
 }  
 

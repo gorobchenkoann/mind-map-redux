@@ -80,10 +80,14 @@ export function nodes(state = initialState, action) {
             newState = Object.assign({}, state); 
             Object.keys(newState).map(id => newState[id].visible = false);
             return newState
-        case 'FILTER_NODES':
-            newState = Object.assign({}, state);         
-            action.nodes.map(id => newState[id].visible = true)
-            return newState
+        case 'FILTER_VISIBLE':
+            if (action.itemType === 'nodes') {
+                newState = Object.assign({}, state); 
+                action.items.map(id => newState[id].visible = true);
+                return newState
+            } 
+            return state         
+            
         case 'CLEAR_ALL':
             return {}
         default:

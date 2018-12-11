@@ -11,7 +11,12 @@
     position: absolute;
     bottom: 0;
     right: 0;
+    width: 10px;
+    height: 10px;
+    border: none;
+    background: transparent;
     cursor: nwse-resize;
+    outline: none;
 }
 
 .span {

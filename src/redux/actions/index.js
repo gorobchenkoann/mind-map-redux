@@ -68,7 +68,8 @@ export const removeNode = (id) => ({
     id
 })
 
-export const filterVisible = (nodes) => ({
-    type: 'FILTER_NODES',
-    nodes
+export const filterVisible = (itemType, items) => ({
+    type: 'FILTER_VISIBLE',
+    itemType, 
+    items
 })

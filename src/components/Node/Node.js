@@ -1,9 +1,8 @@
 import React from 'react';
-import { Controllers, Button, Header, TextEditor } from './';
+import { Controllers, Header, TextEditor } from './';
 import { MdDehaze } from 'react-icons/md';
 
 import styles from './Node.scss';
-import buttonStyles from './Button/Button.scss';
 
 export class Node extends React.Component {    
     state = {
@@ -74,8 +73,8 @@ export class Node extends React.Component {
                     />
 
                     <button
-                    data-element='resize'
-                    className={`${buttonStyles.button} ${styles.resize}`}
+                        data-element='resize'
+                        className={styles.resize}
                     >
                     </button>
                 </>

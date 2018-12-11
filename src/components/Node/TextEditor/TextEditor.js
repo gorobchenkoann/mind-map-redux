@@ -2,7 +2,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { Editor } from 'slate-react';
 import { Value } from 'slate';
-import { MdFormatListBulleted, MdFormatListNumbered } from 'react-icons/md';
+import { MdFormatListBulleted, MdFormatListNumbered, MdAttachment } from 'react-icons/md';
 import { editNodeText, removeNode } from '../../../redux/actions';
 
 import styles from './TextEditor.scss';
@@ -58,6 +58,10 @@ export class TextEditorComponent extends React.Component {
         }        
     }
 
+    setLinkBlock = () => {
+
+    }
+
     removeNode = e => {
         let id = e.target.parentNode.parentNode.getAttribute('id');
         this.props.dispatch(removeNode(id));
@@ -103,6 +107,7 @@ export class TextEditorComponent extends React.Component {
 
                 <button onClick={this.setListBlock}><MdFormatListBulleted /></button>
                 <button onClick={this.setOrderedListBlock}><MdFormatListNumbered /></button>
+                <button onClick={this.setLinkBlock}><MdAttachment /></button>
 
                 <a tabIndex='0' onClick={this.removeNode} title='Delete node'>x</a>
             </div>

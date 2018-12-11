@@ -6,7 +6,6 @@ import styles from './Line.scss';
 
 class LineComponent extends React.Component {
     drawLine(from, to, id) {   
-        console.log(from, to)
         let sourceId = from.split('-')[0];
         let targetId = to.split('-')[0];
         let sourceNode = this.props.nodes[sourceId];

@@ -28,7 +28,6 @@ export function nodes(state = initialState, action) {
                 }                
             }
         case 'EDIT_NODE_TEXT':
-        console.log('edit-node-text')
             return {
                 ...state,
                 [action.id]: {

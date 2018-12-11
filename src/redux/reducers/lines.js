@@ -1,6 +1,6 @@
 import {createId} from '../../utils/createId';
-// const initialState = JSON.parse(localStorage.getItem('lines')) || {};
-const initialState = {};
+const initialState = JSON.parse(localStorage.getItem('lines')) || {};
+// const initialState = {};
 
 export function lines(state = initialState, action) {
     let newState = {};    

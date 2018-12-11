@@ -1,0 +1,10 @@
+.path {
+    stroke: #ff6f61;
+    stroke-width: 2;
+    fill: transparent;
+
+    &:hover {
+        cursor: pointer;
+        stroke-width: 4;
+    }
+}

@@ -228,7 +228,7 @@ class AppCompoment extends React.Component {
                     <svg className={styles.svg}>
                         {Object.entries(this.props.lines).map(([id, line]) => (
                             line.visible ?
-                            <Line from={line.source} to={line.target} id={id} key={id}/>  
+                            <Line from={line.source} to={line.target} id={id} key={id} />  
                             : null                  
                         ))}
                     </svg> 

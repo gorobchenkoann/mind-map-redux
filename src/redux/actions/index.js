@@ -68,6 +68,11 @@ export const removeNode = (id) => ({
     id
 })
 
+export const removeLine = (id) => ({
+    type: 'REMOVE_LINE',
+    id
+})
+
 export const filterVisible = (itemType, items) => ({
     type: 'FILTER_VISIBLE',
     itemType, 

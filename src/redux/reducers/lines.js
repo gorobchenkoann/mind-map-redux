@@ -18,6 +18,15 @@ export function lines(state = initialState, action) {
             return {
 
             }
+        case 'REMOVE_LINE':
+        newState = {};
+        newState = Object.keys(state)
+            .filter(key => key !== action.id)
+            .reduce((result, current) => {
+                result[current] = state[current]; 
+                return result
+            }, {});
+        return newState
         case 'REMOVE_NODE': 
             newState = {};
             newState = Object.keys(state)

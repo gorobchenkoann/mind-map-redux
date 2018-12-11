@@ -1,8 +1,11 @@
 import React from 'react';
 import { connect } from 'react-redux';
 
+import { removeLine } from '../../redux/actions';
+import styles from './Line.scss';
+
 class LineComponent extends React.Component {
-    drawLine(from, to, key) {   
+    drawLine(from, to, id) {   
         console.log(from, to)
         let sourceId = from.split('-')[0];
         let targetId = to.split('-')[0];
@@ -74,18 +77,24 @@ class LineComponent extends React.Component {
         //     var d = directionDict[fromContr] === 'horizontal' ? path.horizontal : path.vertical;
         // } else {
         //     var d = directionDict[fromContr] === 'horizontal' ? path.horizontalVertical : path.verticalHorizontal
-        // }
+        // }      
 
         return (
             // <path key={key} stroke='#ff6f61' strokeWidth={2} fill='transparent'
             //     d={d}
             // >
             // </path>
-            <path key={key} stroke='#ff6f61' strokeWidth={2} fill='transparent'
+            <path 
+                className={styles.path}
+                onClick={() => this.lineClickHandler(id)}
                 d={`M ${sourcePosition.x} ${sourcePosition.y} L ${targetPosition.x} ${targetPosition.y}`}
             >
             </path>
         ) 
+    }
+
+    lineClickHandler = (id) => {
+        this.props.removeLine(id);
     }
 
     render() {
@@ -102,6 +111,13 @@ const mapStateToProps = state => {
     }
 }
 
+const mapDispatchToProps = dispatch => {
+    return {
+        removeLine: (id) => dispatch(removeLine(id))
+    }
+}
+
 export const Line = connect(
-    mapStateToProps
+    mapStateToProps,
+    mapDispatchToProps
 )(LineComponent)

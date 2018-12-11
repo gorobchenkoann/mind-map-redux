@@ -86,12 +86,12 @@ class AppCompoment extends React.Component {
             if (this.scale.sign > 0) {
                 coords = {
                     x: e.clientX  - workspaceInner.x - node.width / 2,
-                    y: e.clientY - workspaceInner.y - node.height / 2
+                    y: e.clientY - workspaceInner.y - 45 / 2 // header's height
                 }  
             } else {
                 coords = {
                     x: e.clientX / sc - workspaceInner.x / sc - node.width / 2,
-                    y: e.clientY / sc - workspaceInner.y / sc - node.height / 2
+                    y: e.clientY / sc - workspaceInner.y / sc - 45 / 2 // header's height
                 }  
             }
             

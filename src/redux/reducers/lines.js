@@ -1,6 +1,5 @@
 import {createId} from '../../utils/createId';
 const initialState = JSON.parse(localStorage.getItem('lines')) || {};
-// const initialState = {};
 
 export function lines(state = initialState, action) {
     let newState = {};    
@@ -50,6 +49,8 @@ export function lines(state = initialState, action) {
                 return newState
             } 
             return state
+        case 'CLEAR_ALL':
+            return {}
         default:
             return state
     }

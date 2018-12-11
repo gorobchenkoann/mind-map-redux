@@ -66,6 +66,28 @@ export class TextEditorComponent extends React.Component {
     editorChangeHandler = (e, id) => {
         this.props.dispatch(editNodeText(id, e.value))
     }
+
+    keyDownHandler = (e, editor, next) => {
+        if (e.ctrlKey) {
+            switch (e.keyCode) {
+                case 66:
+                    this.setBoldMark();
+                    break;
+                case 73:
+                    this.setItalicMark();
+                    break;
+                case 85:
+                    e.preventDefault();
+                    this.setUnderlineMark();
+                    break;
+                case 83:
+                    e.preventDefault();
+                    this.setStrikeMark();
+                    break;
+            }
+        }
+        next();
+    }
     
     // TODO: fix numbers in ordered list
 
@@ -74,10 +96,10 @@ export class TextEditorComponent extends React.Component {
         return (
             <>
             <div className={styles.toolbar}>
-                <button onClick={this.setBoldMark}><b>B</b></button>
-                <button onClick={this.setItalicMark}><i>I</i></button>
-                <button onClick={this.setUnderlineMark}><u>U</u></button>
-                <button onClick={this.setStrikeMark}><s>S</s></button>
+                <button onClick={this.setBoldMark} title='Bold (ctrl+b)'><b>B</b></button>
+                <button onClick={this.setItalicMark} title='Italic (ctrl+i)'><i>I</i></button>
+                <button onClick={this.setUnderlineMark} title='Undeline (ctrl+u)'><u>U</u></button>
+                <button onClick={this.setStrikeMark} title='Strikethrough (ctrl+s)'><s>S</s></button>
 
                 <button onClick={this.setListBlock}><MdFormatListBulleted /></button>
                 <button onClick={this.setOrderedListBlock}><MdFormatListNumbered /></button>
@@ -88,7 +110,7 @@ export class TextEditorComponent extends React.Component {
                 ref={(el) => {this.editorRef = el}}
                 className={styles.editor} 
                 value={Value.fromJSON(value)}   
-                // onChange={onChange}   
+                onKeyDown={this.keyDownHandler}   
                 onChange={e => this.editorChangeHandler(e, nodeId)}
                 renderMark={this.renderMark} 
                 renderNode={this.renderNode}             

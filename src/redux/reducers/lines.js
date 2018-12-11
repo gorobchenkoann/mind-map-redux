@@ -30,7 +30,9 @@ export function lines(state = initialState, action) {
         case 'REMOVE_NODE': 
             newState = {};
             newState = Object.keys(state)
-                .filter(key => state[key].source.split('-')[0] !== action.id)
+                .filter(key => 
+                    state[key].source.split('-')[0] !== action.id && state[key].target.split('-')[0] !== action.id
+                )
                 .reduce((result, current) => {
                     result[current] = state[current]; 
                     return result
@@ -43,10 +45,7 @@ export function lines(state = initialState, action) {
             return newState
         case 'FILTER_VISIBLE': 
             if (action.itemType === 'lines') {
-                console.log(action)
                 newState = Object.assign({}, state); 
-                action.items.map(id => console.log(id))
-                console.log(newState)
                 action.items.map(id =>  newState[id].visible = true);
                 return newState
             } 

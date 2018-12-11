@@ -1,5 +1,6 @@
 import React from 'react';
 import { Controllers, Button, Header, TextEditor } from './';
+import { MdDehaze } from 'react-icons/md';
 
 import styles from './Node.scss';
 import buttonStyles from './Button/Button.scss';
@@ -21,8 +22,6 @@ export class Node extends React.Component {
             mouseOn: false
         })
     }    
-
-
 
     btnClickHandler = e => {
         if (this.state.showEditor) {
@@ -57,15 +56,13 @@ export class Node extends React.Component {
                 <Controllers controllerId={id} mouseOn={this.state.mouseOn}/>
 
                 <Header id={id} title={title}>          
-                    <Button 
+                    <button 
+                        className={styles.displayEditorBtn}
                         onClick={this.btnClickHandler} 
-                        showEditor={this.state.showEditor}
+                        tabIndex='0'
                     >
-                    {this.state.showEditor ? 
-                        <span tabIndex='0' className={styles.span}>-</span> :
-                        <span tabIndex='0' className={styles.span}>+</span>
-                    }
-                    </Button>
+                        <MdDehaze className={styles.displayEditorIcon}/>
+                    </button>
                 </Header>                
                 
                 {this.state.showEditor && 

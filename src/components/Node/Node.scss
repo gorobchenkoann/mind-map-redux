@@ -21,3 +21,21 @@
         color: #ff6f61;
     }
 }
+
+.displayEditorBtn {
+    display: flex;
+    margin-left: auto;
+    border: none;
+    background: transparent;
+    outline: none;
+    cursor: pointer;
+
+    &:focus .displayEditorIcon {
+        color: #ff6f61;
+    }
+}
+
+.displayEditorIcon {
+    margin: auto;
+    color: #4d4d4d;
+}

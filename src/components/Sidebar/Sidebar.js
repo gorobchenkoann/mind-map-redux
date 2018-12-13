@@ -86,7 +86,16 @@ class SidebarComponent extends React.Component {
                 </div>
                 
                 {Object.entries(this.props.maps).map(([id, item], index) => 
-                    <button key={index} className={styles.item} onClick={() =>{this.setCurrentMapHandler(id)}}>{id}</button>
+                    <div className={styles.itemsWrap} key={index} >
+                    <button                         
+                        className={styles.remove} 
+                        title='Delete current map'
+                    ><MdDeleteForever /></button>
+                    <button
+                        className={styles.item} 
+                        onClick={() =>{this.setCurrentMapHandler(id)}}
+                    >{id}</button>
+                    </div>
                 )}
 
             </div>

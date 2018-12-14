@@ -18,14 +18,18 @@ export function maps(state = initialState, action) {
                 }, {})
             return newState
         case 'REMOVE_NODE':
-            let newNodes = state[action.currentMap].nodes.filter(id => id != action.id);
-            return {
-                ...state,
-                [action.currentMap]: {
-                    ...state[action.currentMap],
-                    nodes: newNodes
+            if (action.currentMap) {
+                let newNodes = state[action.currentMap].nodes.filter(id => id != action.id);
+                return {
+                    ...state,
+                    [action.currentMap]: {
+                        ...state[action.currentMap],
+                        nodes: newNodes
+                    }
                 }
-            }
+            } else {
+                return state
+        }            
         case 'CLEAR_ALL':
             return {}
         default:

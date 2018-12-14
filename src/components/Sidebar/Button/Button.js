@@ -25,6 +25,14 @@ class ButtonComponent extends React.Component {
     }  
     
     removeClickHandler = (id) => {
+        let lsMaps = JSON.parse(localStorage.getItem('maps'));  
+        let newLsMaps = Object.keys(lsMaps)
+            .filter(mapId => mapId !== id)
+            .reduce((result, current) => {
+                result[current] = lsMaps[current];
+                return result
+            }, {})                 
+        localStorage.setItem('maps', JSON.stringify(newLsMaps)); 
         this.props.dispatch(removeCurrentMap(id))
     }
 

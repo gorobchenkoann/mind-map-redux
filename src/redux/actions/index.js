@@ -30,6 +30,12 @@ export const resizeNode = (id, width, height) => ({
     height
 })
 
+export const toggleShow = (id, status) => ({
+    type: 'TOGGLE_SHOW',
+    id,
+    status
+})
+
 export const createLine = (from, to) => ({
     type: 'CREATE_LINE',
     from,

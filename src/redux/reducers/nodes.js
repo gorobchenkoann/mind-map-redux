@@ -66,6 +66,12 @@ export function nodes(state = initialState, action) {
                     }
                 }                
             }
+        case 'TOGGLE_SHOW':
+        console.log(action.status)
+        if (action.status === 'close') {
+            
+        }
+            return state
         case 'REMOVE_NODE':
             newState = {};
             newState = Object.keys(state)

@@ -19,6 +19,18 @@ class LineComponent extends React.Component {
             x: targetNode.position.x + targetNode.sizes.width / 2,
             y: targetNode.position.y + targetNode.sizes.height / 2
         }; 
+
+        let shift = {
+            x: (targetPosition.x - sourcePosition.x) / 2,
+            y: (targetPosition.y - sourcePosition.y) / 2
+        }
+
+        let path = `M ${sourcePosition.x} ${sourcePosition.y}
+            L ${sourcePosition.x + shift.x} ${sourcePosition.y}
+            L ${targetPosition.x} ${targetPosition.y}`
+
+        console.log(targetPosition.x, sourcePosition.x, targetPosition.x - sourcePosition.x)
+        console.log(targetPosition.y - sourcePosition.y)
         // let parentCoordX = document.getElementById(from).parentElement.parentElement.getBoundingClientRect().left;  
         // let fromNode = document.getElementById(from).getBoundingClientRect();
         // let toNode = document.getElementById(to).getBoundingClientRect();
@@ -86,7 +98,7 @@ class LineComponent extends React.Component {
             <path 
                 className={styles.path}
                 onClick={() => this.lineClickHandler(id)}
-                d={`M ${sourcePosition.x} ${sourcePosition.y} L ${targetPosition.x} ${targetPosition.y}`}
+                d={path}
             >
             </path>
         ) 

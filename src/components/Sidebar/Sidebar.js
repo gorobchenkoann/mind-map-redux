@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 import { clearWorkspace, clearAll, saveWorkspace, editWorkspace, setCurrentMap, filterVisible } from '../../redux/actions';
 import { isObjectEmpty } from '../../utils/isObjectEmpty';
 import { createId } from '../../utils/createId';
+import { Button } from './Button/Button';
 import { MdNoteAdd, MdDeleteForever, MdSave } from 'react-icons/md';
 import styles from './Sidebar.scss';
 
@@ -86,16 +87,7 @@ class SidebarComponent extends React.Component {
                 </div>
                 
                 {Object.entries(this.props.maps).map(([id, item], index) => 
-                    <div className={styles.itemsWrap} key={index} >
-                    <button                         
-                        className={styles.remove} 
-                        title='Delete current map'
-                    ><MdDeleteForever /></button>
-                    <button
-                        className={styles.item} 
-                        onClick={() =>{this.setCurrentMapHandler(id)}}
-                    >{id}</button>
-                    </div>
+                    <Button setCurrentMapHandler={this.setCurrentMapHandler} id={id} key={index}/>
                 )}
 
             </div>

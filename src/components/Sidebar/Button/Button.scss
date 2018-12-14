@@ -1,0 +1,35 @@
+.wrap {
+    display: flex;
+    margin-bottom: 10px;
+}
+
+.remove {
+    display: flex;
+    opacity: 0;
+    width: 0;
+    padding: 0;
+    border: none;
+    background: #d65b4f;
+    cursor: pointer; 
+    transition: all 0.3s ease;   
+
+    * {
+        width: 20px;
+        height: auto;
+        margin: auto;
+    }
+}
+
+.active {
+    opacity: 1; 
+    width: 30px; 
+}
+
+.item {
+    flex-grow: 1;
+    padding: 10px 0;
+    border: none;
+    background: #d4d4d4;
+    cursor: pointer;   
+    outline-color: #ff6f61; 
+}

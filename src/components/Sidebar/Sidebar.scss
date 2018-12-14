@@ -38,33 +38,3 @@ $side_bar_width_max: 120px;
         margin: auto;
     }
 }
-
-.itemsWrap {
-    display: flex;
-    margin-bottom: 10px;
-}
-
-.remove {
-    // display: none;
-    display: flex;
-    width: 30px;
-    border: none;
-    background: #d65b4f;
-    cursor: pointer;
-
-    * {
-        width: 100%;
-        height: auto;
-        margin: auto;
-    }
-}
-
-.item {
-    flex-grow: 1;
-    padding: 10px 0;
-    border: none;
-    background: #d4d4d4;
-    cursor: pointer;   
-    outline-color: #ff6f61; 
-}
-

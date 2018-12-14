@@ -1,7 +1,7 @@
 import Plain from 'slate-plain-serializer';
 import {createId} from '../../utils/createId';
 
-const initialState = JSON.parse(localStorage.getItem('nodes')) || {};
+const initialState = {};
 const NODE_SIZES = {
     width: 280,
     height: 160

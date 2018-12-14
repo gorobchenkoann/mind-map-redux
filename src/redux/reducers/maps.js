@@ -1,9 +1,7 @@
-const initialState = JSON.parse(localStorage.getItem('maps')) || {};
-
+const initialState = {};
 export function maps(state = initialState, action) {
     switch (action.type) {  
         case 'SAVE_WORKSPACE':
-        // add localstorage here
             return {
                 ...state,
                 [action.id]: {
@@ -19,6 +17,15 @@ export function maps(state = initialState, action) {
                     return result
                 }, {})
             return newState
+        case 'REMOVE_NODE':
+            let newNodes = state[action.currentMap].nodes.filter(id => id != action.id);
+            return {
+                ...state,
+                [action.currentMap]: {
+                    ...state[action.currentMap],
+                    nodes: newNodes
+                }
+            }
         case 'CLEAR_ALL':
             return {}
         default:

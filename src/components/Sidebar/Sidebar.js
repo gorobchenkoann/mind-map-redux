@@ -22,25 +22,7 @@ class SidebarComponent extends React.Component {
             let lines = Object.entries(this.props.lines)
                 .filter(([id, line]) => line.visible === true)
                 .reduce((prev, [id]) => {return [...prev, id]}, [])
-            this.props.saveWorkspace(this.currentMap, nodes, lines); 
-
-            let lsMaps = JSON.parse(localStorage.getItem('maps'));                
-                localStorage.setItem('maps', 
-                    JSON.stringify({...lsMaps, 
-                        [this.currentMap]: {
-                            nodes: nodes,
-                            lines: lines
-                        }
-                    }));                
-            let lsNodes = JSON.parse(localStorage.getItem('nodes'));           
-                localStorage.setItem('nodes', 
-                    JSON.stringify({...lsNodes, ...this.props.nodes})
-                );    
-            let lsLines = JSON.parse(localStorage.getItem('lines'));
-                localStorage.setItem('lines',
-                    JSON.stringify({...lsLines, ...this.props.lines})
-                );  
-                       
+            this.props.saveWorkspace(this.currentMap, nodes, lines);                        
         } 
     }
     
@@ -58,8 +40,9 @@ class SidebarComponent extends React.Component {
     setCurrentMapHandler = (id) => {
         this.currentMap = id;
         let currentMapNodes = this.props.maps[id].nodes;
-        let currentMapLines = this.props.maps[id].lines;
+        let currentMapLines = this.props.maps[id].lines;        
         this.props.clearWorkspace();
+        this.props.setCurrentMap(id); // important: setCurrentMap() must follow clearWorkspace(), otherwise there'll be an empty state
         this.props.filterVisible('nodes', currentMapNodes);
         this.props.filterVisible('lines', currentMapLines);
     }

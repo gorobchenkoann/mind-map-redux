@@ -64,7 +64,7 @@ export class TextEditorComponent extends React.Component {
 
     removeNode = e => {
         let id = e.target.parentNode.parentNode.getAttribute('id');
-        this.props.dispatch(removeNode(id));
+        this.props.dispatch(removeNode(this.props.currentMap, id));
     }
 
     editorChangeHandler = (e, id) => {
@@ -152,4 +152,10 @@ export class TextEditorComponent extends React.Component {
     
 }
 
-export const TextEditor = connect()(TextEditorComponent)
+const mapStateToProps = state => {
+    return {
+        currentMap: state.currentMap
+    }
+}
+
+export const TextEditor = connect(mapStateToProps, null)(TextEditorComponent)

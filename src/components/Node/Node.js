@@ -1,7 +1,7 @@
 import React from 'react';
 import { Controllers, Header, TextEditor } from './';
 import { connect } from 'react-redux';
-import { toggleShow } from '../../redux/actions';
+import { showNodeEditor } from '../../redux/actions';
 import { MdDehaze } from 'react-icons/md';
 
 import styles from './Node.scss';
@@ -27,11 +27,9 @@ export class NodeComponent extends React.Component {
     btnClickHandler = (id, e) => {
         if (this.state.showEditor) {
             // for adaptive controllers
-            e.target.closest('div').parentElement.style.minHeight = 0;
-            this.props.dispatch(toggleShow(id, 'close'));
+            this.props.dispatch(showNodeEditor(id, 'close'));
         } else {
-            e.target.closest('div').parentElement.style.minHeight = `${this.props.sizes.height}px`;
-            this.props.dispatch(toggleShow(id, 'open'));
+            this.props.dispatch(showNodeEditor(id, 'open'));
         }
         
         this.setState({

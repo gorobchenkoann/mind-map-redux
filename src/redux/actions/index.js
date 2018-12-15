@@ -30,8 +30,8 @@ export const resizeNode = (id, width, height) => ({
     height
 })
 
-export const toggleShow = (id, status) => ({
-    type: 'TOGGLE_SHOW',
+export const showNodeEditor = (id, status) => ({
+    type: 'SHOW_NODE_EDITOR',
     id,
     status
 })

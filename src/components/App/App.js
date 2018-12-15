@@ -28,7 +28,18 @@ class AppCompoment extends React.Component {
         }        
     }
     componentDidMount() {
+        window.addEventListener('beforeunload', this.beforeUnloadHandler);
         this.props.clearWorkspace();
+    }
+
+    componentWillUnmount() {
+        window.removeEventListener('beforeunload', this.beforeUnloadHandler)
+    }
+
+    beforeUnloadHandler = e => {
+        const confirmationMessage = '';
+        e.returnValue = confirmationMessage;     
+        return confirmationMessage;
     }
 
     startResize = e => {

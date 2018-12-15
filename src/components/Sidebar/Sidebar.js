@@ -1,6 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { clearWorkspace, clearAll, saveWorkspace, editWorkspace, setCurrentMap, filterVisible } from '../../redux/actions';
+import { clearWorkspace, clearAll, saveWorkspace, editWorkspace, setCurrentMap, filterVisible, removeNode } from '../../redux/actions';
 import { isObjectEmpty } from '../../utils/isObjectEmpty';
 import { createId } from '../../utils/createId';
 import { Button } from './Button/Button';
@@ -30,13 +30,27 @@ class SidebarComponent extends React.Component {
         if (!this.currentMap) {
             let userConfirm = window.confirm('The current map will be deleted');
             if (userConfirm) {
-                this.currentMap = null;
-                this.props.clearWorkspace();       
+                Object.entries(this.props.nodes).map(([id, node]) => {
+                    console.log(node.visible)
+                    if (node.visible === true) {
+                        console.log('remove')
+                        this.props.removeNode(null, id)
+                    }
+                });  
+                this.props.clearWorkspace();                            
             }
         } else {
+            Object.entries(this.props.nodes).map(([id, node]) => {
+                if (!this.props.maps[this.currentMap].nodes.includes(id)) {
+                    this.props.removeNode(null, id);
+                }
+            })  
             this.currentMap = null;
-            this.props.clearWorkspace();   
-        }             
+            this.props.clearWorkspace();             
+        } 
+        
+        // console.log(this.props.maps)
+        // console.log(this.props.nodes)            
     }
 
     removeAllMaps = () => {  
@@ -105,7 +119,8 @@ const mapDispatchToProps = dispatch => {
         saveWorkspace: (id, nodes, lines) => dispatch(saveWorkspace(id, nodes, lines)),
         editWorkspace: (id, nodes, lines) => dispatch(editWorkspace(id, nodes, lines)),
         setCurrentMap: (id) => dispatch(setCurrentMap(id)),
-        filterVisible: (itemType, items) => dispatch(filterVisible(itemType, items))
+        filterVisible: (itemType, items) => dispatch(filterVisible(itemType, items)),
+        removeNode: (currentMap, id) => dispatch(removeNode(currentMap, id))
     }
 }  
 

@@ -27,14 +27,25 @@ class SidebarComponent extends React.Component {
     }
     
     createNewMap = () => {
-        this.currentMap = null;
-        this.props.clearWorkspace();        
+        if (this.currentMap) {
+            let userConfirm = window.confirm('The current map will be deleted');
+            if (userConfirm) {
+                this.currentMap = null;
+                this.props.clearWorkspace();       
+            }
+        } else {
+            this.currentMap = null;
+            this.props.clearWorkspace();   
+        }             
     }
 
-    removeAllMaps = () => {        
-        this.currentMap = null;
-        this.props.clearAll();
-        localStorage.clear();
+    removeAllMaps = () => {  
+        let userConfirm = window.confirm('Delete ALL maps?');
+        if (userConfirm) {
+            this.currentMap = null;
+            this.props.clearAll();
+            localStorage.clear();
+        }        
     }
 
     setCurrentMapHandler = (id) => {

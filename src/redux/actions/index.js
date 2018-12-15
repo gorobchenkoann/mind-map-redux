@@ -60,10 +60,6 @@ export const editWorkspace = (id, nodes, lines) => ({
     lines
 })
 
-export const clearAll = () => ({
-    type: 'CLEAR_ALL'
-})
-
 export const setCurrentMap = (id) =>({
     type: 'SET_CURRENT_MAP',
     id

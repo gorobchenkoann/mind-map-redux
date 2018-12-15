@@ -13,7 +13,7 @@ $side_bar_width_max: 120px;
 
 .buttonWrap {
     display: flex;
-    justify-content: space-around;
+    justify-content: center;
     margin-top: 10px;
     margin-bottom: 30px;
 }
@@ -22,11 +22,16 @@ $side_bar_width_max: 120px;
     display: flex;
     width: 30px;
     height: 35px;
+    margin-right: 10px; 
     border: none;
     background: #d4d4d4;
     cursor: pointer;   
     color: #4d4d4d;
     outline: none; 
+
+    &:last-child {
+        margin-right: 0;
+    }
 
     &:focus {
         color: #ff6f61;

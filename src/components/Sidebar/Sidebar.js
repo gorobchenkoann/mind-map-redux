@@ -1,6 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { clearWorkspace, clearAll, saveWorkspace, editWorkspace, setCurrentMap, filterVisible, removeNode } from '../../redux/actions';
+import { clearWorkspace, saveWorkspace, editWorkspace, setCurrentMap, filterVisible, removeNode } from '../../redux/actions';
 import { isObjectEmpty } from '../../utils/isObjectEmpty';
 import { createId } from '../../utils/createId';
 import { Button } from './Button/Button';
@@ -47,19 +47,7 @@ class SidebarComponent extends React.Component {
             })  
             this.currentMap = null;
             this.props.clearWorkspace();             
-        } 
-        
-        // console.log(this.props.maps)
-        // console.log(this.props.nodes)            
-    }
-
-    removeAllMaps = () => {  
-        let userConfirm = window.confirm('Delete ALL maps?');
-        if (userConfirm) {
-            this.currentMap = null;
-            this.props.clearAll();
-            localStorage.clear();
-        }        
+        }       
     }
 
     setCurrentMapHandler = (id) => {
@@ -86,12 +74,6 @@ class SidebarComponent extends React.Component {
                         onClick={this.saveMap}
                         title='Save map'
                     ><MdSave /></button>
-                    <button                         
-                        onClick={this.removeAllMaps}
-                        data-element='clear' 
-                        className={styles.button}
-                        title='Delete ALL maps'
-                    ><MdDeleteForever /></button>
                 </div>
                 
                 {Object.entries(this.props.maps).map(([id, item], index) => 
@@ -115,7 +97,6 @@ const mapStateToProps = state => {
 const mapDispatchToProps = dispatch => {
     return {
         clearWorkspace: () => dispatch(clearWorkspace()),
-        clearAll: () => dispatch(clearAll()),
         saveWorkspace: (id, nodes, lines) => dispatch(saveWorkspace(id, nodes, lines)),
         editWorkspace: (id, nodes, lines) => dispatch(editWorkspace(id, nodes, lines)),
         setCurrentMap: (id) => dispatch(setCurrentMap(id)),

@@ -95,10 +95,8 @@ export function nodes(state = initialState, action) {
                 action.items.map(id => newState[id].visible = true);
                 return newState
             } 
-            return state         
+            return state        
             
-        case 'CLEAR_ALL':
-            return {}
         default:
             return state
     }

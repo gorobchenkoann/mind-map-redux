@@ -66,6 +66,15 @@ export function nodes(state = initialState, action) {
                     }
                 }                
             }
+        case 'SHOW_NODE_EDITOR':
+            let newNode = {...state};
+            if (action.status === 'close') {
+                newNode[action.id].sizes.height = 40
+            } 
+            if (action.status === 'open') {
+                newNode[action.id].sizes.height = 160
+            }
+                return newNode
         case 'REMOVE_NODE':
             newState = {};
             newState = Object.keys(state)

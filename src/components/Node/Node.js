@@ -1,10 +1,12 @@
 import React from 'react';
 import { Controllers, Header, TextEditor } from './';
+import { connect } from 'react-redux';
+import { showNodeEditor } from '../../redux/actions';
 import { MdDehaze } from 'react-icons/md';
 
 import styles from './Node.scss';
 
-export class Node extends React.Component {    
+export class NodeComponent extends React.Component {    
     state = {
         mouseOn: false,
         showEditor: true,
@@ -22,17 +24,18 @@ export class Node extends React.Component {
         })
     }    
 
-    btnClickHandler = e => {
+    btnClickHandler = (id, e) => {
         if (this.state.showEditor) {
             // for adaptive controllers
-            e.target.closest('div').parentElement.style.minHeight = 0;
+            this.props.dispatch(showNodeEditor(id, 'close'));
         } else {
-            e.target.closest('div').parentElement.style.minHeight = `${this.props.sizes.height}px`;
+            this.props.dispatch(showNodeEditor(id, 'open'));
         }
         
         this.setState({
             showEditor: !this.state.showEditor
         })
+        
     }
 
     render() {
@@ -57,7 +60,7 @@ export class Node extends React.Component {
                 <Header id={id} title={title}>          
                     <button 
                         className={styles.displayEditorBtn}
-                        onClick={this.btnClickHandler} 
+                        onClick={e => this.btnClickHandler(id, e)} 
                         tabIndex='0'
                     >
                         <MdDehaze className={styles.displayEditorIcon}/>
@@ -83,3 +86,5 @@ export class Node extends React.Component {
         )
     }    
 }
+
+export const Node = connect()(NodeComponent)

@@ -4,7 +4,8 @@ import {createId} from '../../utils/createId';
 const initialState = {};
 const NODE_SIZES = {
     width: 280,
-    height: 160
+    height: 160,
+    headerHeight: 40
 };
 
 export function nodes(state = initialState, action) {
@@ -69,10 +70,10 @@ export function nodes(state = initialState, action) {
         case 'SHOW_NODE_EDITOR':
             let newNode = {...state};
             if (action.status === 'close') {
-                newNode[action.id].sizes.height = 40
+                newNode[action.id].sizes.height = NODE_SIZES.headerHeight
             } 
             if (action.status === 'open') {
-                newNode[action.id].sizes.height = 160
+                newNode[action.id].sizes.height = NODE_SIZES.height
             }
                 return newNode
         case 'REMOVE_NODE':

@@ -27,7 +27,7 @@ class SidebarComponent extends React.Component {
     }
     
     createNewMap = () => {
-        if (this.currentMap) {
+        if (!this.currentMap) {
             let userConfirm = window.confirm('The current map will be deleted');
             if (userConfirm) {
                 this.currentMap = null;

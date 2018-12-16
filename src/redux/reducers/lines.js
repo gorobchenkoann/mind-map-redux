@@ -49,8 +49,6 @@ export function lines(state = initialState, action) {
                 return newState
             } 
             return state
-        case 'CLEAR_ALL':
-            return {}
         default:
             return state
     }

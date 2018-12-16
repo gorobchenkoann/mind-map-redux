@@ -30,8 +30,6 @@ export function maps(state = initialState, action) {
             } else {
                 return state
         }            
-        case 'CLEAR_ALL':
-            return {}
         default:
             return state
     }

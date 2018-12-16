@@ -12,8 +12,6 @@ function currentMap(state = initialState, action) {
             return action.id
         case 'CLEAR_WORKSPACE':
             return null  
-        case 'CLEAR_ALL':
-            return null  
         default:
             return state
     }

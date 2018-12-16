@@ -2,7 +2,10 @@ import React from 'react';
 import { connect } from 'react-redux';
 
 import { removeLine } from '../../redux/actions';
+import classNames from 'classnames/bind';
 import styles from './Line.scss';
+
+let cx = classNames.bind(styles);
 
 class LineComponent extends React.Component {
     getPosition(direction, node) {
@@ -60,6 +63,21 @@ class LineComponent extends React.Component {
                 ${targetPosition.x} ${targetPosition.y}`
         }
 
+        let arrowDict = {
+            'right': `M ${targetPosition.x + 6} ${targetPosition.y - 4}
+                    ${targetPosition.x + 1} ${targetPosition.y}
+                    ${targetPosition.x + 6} ${targetPosition.y + 4} Z`,
+            'left': `M ${targetPosition.x - 6} ${targetPosition.y - 4}
+                    ${targetPosition.x - 1} ${targetPosition.y}
+                    ${targetPosition.x - 6} ${targetPosition.y + 4} Z`,
+            'bottom': `M ${targetPosition.x - 4} ${targetPosition.y + 6}
+                    ${targetPosition.x} ${targetPosition.y + 1}
+                    ${targetPosition.x + 4} ${targetPosition.y + 6} Z`,
+            'top': `M ${targetPosition.x - 4} ${targetPosition.y - 6}
+                    ${targetPosition.x} ${targetPosition.y - 1}
+                    ${targetPosition.x + 4} ${targetPosition.y - 6} Z`
+        }
+
         let path = null;
         if (sourceDirecion === 'left' || sourceDirecion === 'right') {
             path = targetDirection === 'left' || targetDirection === 'right' 
@@ -68,14 +86,21 @@ class LineComponent extends React.Component {
             path = targetDirection === 'top' || targetDirection === 'bottom'
             ? pathDict.v : pathDict.vh
         }
-
+        console.log(targetDirection)
         return (
+            <>
             <path 
                 className={styles.path}
                 onClick={() => this.lineClickHandler(id)}
                 d={path}
             >
+            </path> 
+            <path
+                className={cx('path', 'arrow')}
+                d={arrowDict[targetDirection]}
+            >
             </path>
+            </>            
         ) 
     }
 

@@ -8,3 +8,11 @@
         stroke-width: 4;
     }
 }
+
+.arrow {
+    fill: #ff6f61;
+}
+
+.path:hover + .arrow {
+    stroke-width: 4;
+}

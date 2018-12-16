@@ -31,9 +31,7 @@ class SidebarComponent extends React.Component {
             let userConfirm = window.confirm('The current map will be deleted');
             if (userConfirm) {
                 Object.entries(this.props.nodes).map(([id, node]) => {
-                    console.log(node.visible)
                     if (node.visible === true) {
-                        console.log('remove')
                         this.props.removeNode(null, id)
                     }
                 });  

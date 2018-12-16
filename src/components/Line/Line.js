@@ -86,20 +86,17 @@ class LineComponent extends React.Component {
             path = targetDirection === 'top' || targetDirection === 'bottom'
             ? pathDict.v : pathDict.vh
         }
-        console.log(targetDirection)
         return (
             <>
             <path 
                 className={styles.path}
                 onClick={() => this.lineClickHandler(id)}
                 d={path}
-            >
-            </path> 
+            ></path> 
             <path
                 className={cx('path', 'arrow')}
                 d={arrowDict[targetDirection]}
-            >
-            </path>
+            ></path>
             </>            
         ) 
     }

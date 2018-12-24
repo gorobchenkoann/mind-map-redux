@@ -1,7 +1,8 @@
 .node {
     position: absolute;
     display: flex;
-    flex-direction: column;    
+    flex-direction: column;     
+    max-height: 300px;   
     box-sizing: border-box;
     outline: none; 
     z-index: 30;

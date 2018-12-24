@@ -9,7 +9,6 @@ import styles from './Sidebar.scss';
 
 class SidebarComponent extends React.Component {   
     saveMap = () => {  
-        let id = createId();
         let mapId = this.props.currentMap === null ? createId() : this.props.currentMap;  
         // if there's something to save
         if (!isObjectEmpty(this.props.nodes)) { 
@@ -26,7 +25,7 @@ class SidebarComponent extends React.Component {
     }
     
     createNewMap = () => {
-        if (this.props.currentMap === null && !isObjectEmpty(this.props.nodes)) {
+        if (!this.props.currentMap && !isObjectEmpty(this.props.nodes)) {
             let userConfirm = window.confirm('The current map will be deleted');
             if (userConfirm) {
                 Object.entries(this.props.nodes).map(([id, node]) => {
@@ -36,7 +35,7 @@ class SidebarComponent extends React.Component {
                 });  
                 this.props.clearWorkspace();                            
             }
-        } else if (this.props.currentMap !== null  && !isObjectEmpty(this.props.nodes)) {
+        } else if (this.props.currentMap  && !isObjectEmpty(this.props.nodes)) {
             Object.entries(this.props.nodes).map(([id, node]) => {
                 // remove unsaved nodes from state.nodes
                 if (!this.props.maps[this.props.currentMap].nodes.includes(id) && node.visible) {

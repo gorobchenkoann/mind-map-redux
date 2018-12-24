@@ -1,6 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { clearWorkspace, removeCurrentMap } from '../../../redux/actions';
+import { clearWorkspace, removeCurrentMap, removeNode } from '../../../redux/actions';
 import classNames from 'classnames/bind';
 import { MdDeleteForever } from 'react-icons/md';
 import styles from './Button.scss';
@@ -27,7 +27,13 @@ class ButtonComponent extends React.Component {
     removeClickHandler = (id) => {
         let userConfirm = window.confirm('Delete current map?');
         if (userConfirm) {
-            this.props.dispatch(removeCurrentMap(id))
+            Object.entries(this.props.nodes).map(([nodeId, node]) => {
+                if (this.props.maps[id].nodes.includes(nodeId)) {
+                    this.props.dispatch(removeNode(null, nodeId));
+                }
+            }) 
+            // remove nodes of current maps, then:
+            this.props.dispatch(removeCurrentMap(id))            
             this.props.dispatch(clearWorkspace())
         }
     }
@@ -53,4 +59,12 @@ class ButtonComponent extends React.Component {
     }
 }
 
-export const Button = connect()(ButtonComponent)
+const mapStateToProps = state => {
+    return {
+        nodes: state.nodes,
+        lines: state.lines,
+        maps: state.maps
+    }
+}
+
+export const Button = connect(mapStateToProps, null)(ButtonComponent)

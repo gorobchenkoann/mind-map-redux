@@ -9,25 +9,23 @@ import styles from './Sidebar.scss';
 
 class SidebarComponent extends React.Component {   
     saveMap = () => {           
-        let id = createId();  
+        let mapId = createId();  
         // if there's something to save
-        if (!isObjectEmpty(this.props.nodes)) {
-            if (!this.currentMap) {
-                this.currentMap = id;  
-            } 
-
+        if (!isObjectEmpty(this.props.nodes)) { 
             let nodes = Object.entries(this.props.nodes)
                 .filter(([id, node]) => node.visible === true)
                 .reduce((prev, [id]) => {return [...prev, id]}, [])
             let lines = Object.entries(this.props.lines)
                 .filter(([id, line]) => line.visible === true)
                 .reduce((prev, [id]) => {return [...prev, id]}, [])
-            this.props.saveWorkspace(this.currentMap, nodes, lines);                        
+
+            this.props.setCurrentMap(mapId);
+            this.props.saveWorkspace(mapId, nodes, lines);                        
         } 
     }
     
     createNewMap = () => {
-        if (!this.currentMap) {
+        if (!this.props.currentMap && !isObjectEmpty(this.props.nodes)) {
             let userConfirm = window.confirm('The current map will be deleted');
             if (userConfirm) {
                 Object.entries(this.props.nodes).map(([id, node]) => {
@@ -37,19 +35,18 @@ class SidebarComponent extends React.Component {
                 });  
                 this.props.clearWorkspace();                            
             }
-        } else {
+        } else if (this.props.currentMap && !isObjectEmpty(this.props.nodes)) {
             Object.entries(this.props.nodes).map(([id, node]) => {
-                if (!this.props.maps[this.currentMap].nodes.includes(id)) {
+                // remove unsaved nodes from state.nodes
+                if (!this.props.maps[this.props.currentMap].nodes.includes(id) && node.visible) {
                     this.props.removeNode(null, id);
                 }
-            })  
-            this.currentMap = null;
+            });
             this.props.clearWorkspace();             
         }       
     }
 
     setCurrentMapHandler = (id) => {
-        this.currentMap = id;
         let currentMapNodes = this.props.maps[id].nodes;
         let currentMapLines = this.props.maps[id].lines;        
         this.props.clearWorkspace();

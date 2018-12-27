@@ -1,6 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { clearWorkspace, saveWorkspace, editWorkspace, setCurrentMap, filterVisible, removeNode } from '../../redux/actions';
+import { clearWorkspace, saveWorkspace, setCurrentMap, filterVisible, removeNode } from '../../redux/actions';
 import { isObjectEmpty } from '../../utils/isObjectEmpty';
 import { createId } from '../../utils/createId';
 import { Button } from './Button/Button';
@@ -93,7 +93,6 @@ const mapDispatchToProps = dispatch => {
     return {
         clearWorkspace: () => dispatch(clearWorkspace()),
         saveWorkspace: (id, nodes, lines) => dispatch(saveWorkspace(id, nodes, lines)),
-        editWorkspace: (id, nodes, lines) => dispatch(editWorkspace(id, nodes, lines)),
         setCurrentMap: (id) => dispatch(setCurrentMap(id)),
         filterVisible: (itemType, items) => dispatch(filterVisible(itemType, items)),
         removeNode: (currentMap, id) => dispatch(removeNode(currentMap, id))

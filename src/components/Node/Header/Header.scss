@@ -1,5 +1,6 @@
 .header {
     display: flex;
+    flex-shrink: 0;
     height: 40px;
     padding: 10px;
     background-color: #dadada;

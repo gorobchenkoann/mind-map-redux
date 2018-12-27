@@ -1,5 +1,6 @@
 .toolbar {
     display: flex;
+    flex-shrink: 0;
     padding: 5px;
     background-color: #ffffff;
     border-bottom: 1px dashed #dadada;
@@ -9,6 +10,7 @@
     flex-grow: 1;
     padding: 10px;
     background-color: #ffffff;
+    
     outline: none;
     overflow-y: scroll;
 

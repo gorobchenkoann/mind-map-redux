@@ -99,6 +99,5 @@ export function nodes(state = initialState, action) {
             
         default:
             return state
-    }
-    
+    }   
 }
